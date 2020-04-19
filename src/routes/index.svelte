@@ -20,7 +20,7 @@
   }
 
   .banner-height {
-    height: 100px;
+    height: 15em;
     margin-top: -3em;
   }
 
