@@ -26,7 +26,7 @@
 
   .release-roll {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     padding: 10px;
   }
   .release-item {
@@ -63,6 +63,21 @@
   .release-hover:hover {
     opacity: 1;
   }
+
+  .new {
+    display: flex;
+    justify-content: space-between;
+  }
+  .content{
+    padding-left: 15px; 
+  }
+  .title {
+    display: flex;
+    justify-content: space-between;
+  }
+  .author>img {
+    width:7em;
+  }
 </style>
 
 <svelte:head>
@@ -74,7 +89,7 @@
 </div>
 <div class="banner-height placeholder" />
 
-<h2>Dernieres sorties</h2>
+<h3>Dernieres sorties</h3>
 <div class="release-roll">
   <div class="release-item">
     <div class="img">
@@ -83,7 +98,7 @@
         alt="release-thumbnail" />
     </div>
     <a href="." class="release-hover">
-      <h3>Donnation</h3>
+      <h4>Donnation</h4>
       some bala bla
     </a>
   </div>
@@ -94,7 +109,7 @@
         alt="release-thumbnail" />
     </div>
     <a href="." class="release-hover">
-      <h3>Donnation</h3>
+      <h4>Donnation</h4>
       some bala bla
     </a>
   </div>
@@ -105,15 +120,42 @@
         alt="release-thumbnail" />
     </div>
     <a href="." class="release-hover">
-      <h3>Donnation</h3>
+      <h4>Donnation</h4>
       some bala bla
     </a>
   </div>
 </div>
 
-<h2>Dernieres news</h2>
+<h3>Dernieres news</h3>
 <div class="last-news">
   <div class="new">
-    <div />
+    <div class="author">
+      <img src="https://anesis.tk/images/avatars/westixy.png" alt="">
+    </div>
+    <div class="content">
+      <div class="title">
+        <h2>Nouveau site en construction</h2>
+        <div class="date">19.04.2020</div>
+      </div>
+      <p class="text">
+        <img src="http://oasis-scantrad.fr/V4/img/news.png" alt="some image" style="float:left;margin: 0 10px;">
+        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+      </p>
+    </div>
+  </div>
+  <div class="new">
+    <div class="author">
+      <img src="https://anesis.tk/images/avatars/westixy.png" alt="">
+    </div>
+    <div class="content">
+      <div class="title">
+        <h2>Nouveau site en construction</h2>
+        <div class="date">19.04.2020</div>
+      </div>
+      <p class="text">
+        <img src="http://oasis-scantrad.fr/V4/img/news.png" alt="some image" style="float:left;margin: 0 10px;">
+        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+      </p>
+    </div>
   </div>
 </div>
