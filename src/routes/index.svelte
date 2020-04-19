@@ -22,12 +22,14 @@
   .banner-height {
     height: 15em;
     margin-top: -3em;
+    margin-bottom: 1em;
   }
 
   .release-roll {
     display: flex;
     justify-content: space-around;
     padding: 10px;
+    margin-bottom: 1em;
   }
   .release-item {
     height: 150px;
@@ -67,6 +69,10 @@
   .new {
     display: flex;
     justify-content: space-between;
+    padding-bottom: 1em;
+  }
+  .new:nth-last-child(1) {
+    padding-bottom: 0;
   }
   .content{
     padding-left: 15px; 
@@ -77,6 +83,9 @@
   }
   .author>img {
     width:7em;
+  }
+  h3.part {
+    text-transform: uppercase;
   }
 </style>
 
@@ -89,7 +98,7 @@
 </div>
 <div class="banner-height placeholder" />
 
-<h3>Dernieres sorties</h3>
+<h3 class="part">Dernieres sorties</h3>
 <div class="release-roll">
   <div class="release-item">
     <div class="img">
@@ -98,7 +107,7 @@
         alt="release-thumbnail" />
     </div>
     <a href="." class="release-hover">
-      <h4>Donnation</h4>
+      <h4>Release 1</h4>
       some bala bla
     </a>
   </div>
@@ -109,7 +118,7 @@
         alt="release-thumbnail" />
     </div>
     <a href="." class="release-hover">
-      <h4>Donnation</h4>
+      <h4>Release 2</h4>
       some bala bla
     </a>
   </div>
@@ -120,13 +129,13 @@
         alt="release-thumbnail" />
     </div>
     <a href="." class="release-hover">
-      <h4>Donnation</h4>
+      <h4>Release 3</h4>
       some bala bla
     </a>
   </div>
 </div>
 
-<h3>Dernieres news</h3>
+<h3 class="part">Dernieres news</h3>
 <div class="last-news">
   <div class="new">
     <div class="author">
