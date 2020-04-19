@@ -1,6 +1,6 @@
 # WIP: Oasis scantrad front
 
-New web interface for [oasis scantrad](http://oasis-scantrad.fr/).
+New web interface for !NSFW[oasis scantrad](http://oasis-scantrad.fr/).
 
 <small>From the default [Sapper](https://github.com/sveltejs/sapper) template, available for Rollup and webpack.</small>
 

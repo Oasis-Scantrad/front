@@ -4,7 +4,7 @@
     left: 0;
     right: 0;
     display: flex;
-    background-image: url(http://oasis-scantrad.fr/V4/skin/Bon/header.jpg);
+    background-image: url(https://via.placeholder.com/940x215);
     background-attachment: scroll;
     backdrop-filter: blur(3px);
     background-attachment: scroll;
@@ -94,7 +94,7 @@
   <div class="release-item">
     <div class="img">
       <img
-        src="http://oasis-scantrad.fr/img/dons.png"
+        src="https://via.placeholder.com/150x200"
         alt="release-thumbnail" />
     </div>
     <a href="." class="release-hover">
@@ -105,7 +105,7 @@
   <div class="release-item">
     <div class="img">
       <img
-        src="http://oasis-scantrad.fr/img/dons.png"
+        src="https://via.placeholder.com/150x200"
         alt="release-thumbnail" />
     </div>
     <a href="." class="release-hover">
@@ -116,7 +116,7 @@
   <div class="release-item">
     <div class="img">
       <img
-        src="http://oasis-scantrad.fr/img/dons.png"
+        src="https://via.placeholder.com/150x200"
         alt="release-thumbnail" />
     </div>
     <a href="." class="release-hover">
@@ -130,7 +130,7 @@
 <div class="last-news">
   <div class="new">
     <div class="author">
-      <img src="https://anesis.tk/images/avatars/westixy.png" alt="">
+      <img src="https://via.placeholder.com/200x450?text=author" alt="">
     </div>
     <div class="content">
       <div class="title">
@@ -138,14 +138,14 @@
         <div class="date">19.04.2020</div>
       </div>
       <p class="text">
-        <img src="http://oasis-scantrad.fr/V4/img/news.png" alt="some image" style="float:left;margin: 0 10px;">
+        <img src="https://via.placeholder.com/200x80" alt="some image" style="float:left;margin: 0 10px;">
         Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
       </p>
     </div>
   </div>
   <div class="new">
     <div class="author">
-      <img src="https://anesis.tk/images/avatars/westixy.png" alt="">
+      <img src="https://via.placeholder.com/200x450?text=author" alt="">
     </div>
     <div class="content">
       <div class="title">
@@ -153,7 +153,7 @@
         <div class="date">19.04.2020</div>
       </div>
       <p class="text">
-        <img src="http://oasis-scantrad.fr/V4/img/news.png" alt="some image" style="float:left;margin: 0 10px;">
+        <img src="https://via.placeholder.com/80x120" alt="some image" style="float:left;margin: 0 10px;">
         Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
       </p>
     </div>
