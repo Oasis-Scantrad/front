@@ -5,10 +5,12 @@
 <style>
   nav {
     width: 100%;
+    position: fixed;
+    z-index: 10;
   }
 
   .sizer {
-    width: 60%;
+    max-width: 56em;
     margin: auto;
     display: flex;
     align-items: center;
@@ -55,7 +57,7 @@
   }
 
   .placeholder {
-    height: 80px;
+    height: 70px;
   }
 </style>
 
