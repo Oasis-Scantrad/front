@@ -71,7 +71,7 @@
     </div>
     <div class="placer">
       <a href="releases" class="link {segment === 'releases' ? 'active' : ''}">
-        <div class="text">Releases</div>
+        <div class="text">Bouquins</div>
       </a>
     </div>
     <div class="logo placer">
