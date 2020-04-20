@@ -9,6 +9,7 @@
     padding: 0px 5px;
     font-size: 0.6em;
     margin-right: 5px;
+    margin-bottom: 5px;
   }
 </style>
 

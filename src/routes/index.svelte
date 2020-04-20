@@ -1,6 +1,17 @@
+<script context="module">
+  export function preload({ params, query }) {
+    return this.fetch(`releases.json`)
+      .then(r => r.json())
+      .then(releases => {
+        return { releases };
+      });
+  }
+</script>
+
 <script>
   import ReleaseLink from "../components/Release-link.svelte";
   import New from "../components/New.svelte";
+  export let releases;
 </script>
 
 <style>
@@ -53,21 +64,13 @@
 
 <h3 class="part">Dernieres sorties</h3>
 <div class="release-roll">
-  <ReleaseLink
-    name="r1"
-    id=""
-    description="some wunderbar things like you do not know"
-    imgSrc="https://via.placeholder.com/150x200" />
-  <ReleaseLink
-    name="r2"
-    id=""
-    description="some wunderbar things like you do not know"
-    imgSrc="https://via.placeholder.com/150x200" />
-  <ReleaseLink
-    name="r3"
-    id=""
-    description="some wunderbar things like you do not know"
-    imgSrc="https://via.placeholder.com/150x200" />
+  {#each releases.slice(0,3) as release}
+    <ReleaseLink
+      name="{release.title}"
+      id="{release.id}"
+      description="{release.description}"
+      imgSrc="{release.imgSrc}" />
+  {/each}
 </div>
 
 <h3 class="part">Dernieres news</h3>

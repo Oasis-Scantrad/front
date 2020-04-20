@@ -85,7 +85,7 @@
         <img src={release.img} alt="release" />
       </div>
       <div class="content">
-        <h3>{release.title}</h3>
+        <h3><a href="releases/{release.id}">{release.title}</a></h3>
         <div class="tags">
           {#each release.tags as tag}
             <Tag name={tag} />
@@ -97,6 +97,9 @@
   {/each}
 </div>
 <div class="paginate">
+  <!--
+    TODO: create a true pagination
+  -->
   <button onclick="{()=>page--}">prev</button>
   <button onclick="{()=>page=1-1}">1</button>
   <button onclick="{()=>page++}">next</button>

@@ -10,7 +10,7 @@
   <div class="img">
     <img src="{imgSrc}" alt="release-thumbnail" />
   </div>
-  <a href="./{id}" class="release-hover">
+  <a href="releases/{id}" class="release-hover">
     <h4>{name}</h4>
     {description}
   </a>
