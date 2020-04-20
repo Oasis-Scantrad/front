@@ -13,6 +13,8 @@
   export let releases;
   let search = "";
   let filteredReleases = [];
+  const perPage = 5;
+  let page = 0;
 
   $: filteredReleases = releases.filter(r => {
     const rx = new RegExp(search);
@@ -40,7 +42,7 @@
   .releases-list {
     max-height: calc(100vh - 250px);
     overflow: auto;
-    transition-duration: .3s;
+    transition-duration: 0.3s;
   }
   .releases-header {
     display: flex;
@@ -52,19 +54,19 @@
     justify-content: stretch;
   }
 
-  .release>.img>img {
+  .release > .img > img {
     max-width: 150px;
     max-height: 150px;
   }
-  .release>.content {
-    padding-left: 10px
+  .release > .content {
+    padding-left: 10px;
   }
   .tags {
     display: flex;
   }
 </style>
 
-<div class="releases-header" >
+<div class="releases-header">
   <h1>Bouquins</h1>
   <div>
     <input
@@ -77,9 +79,11 @@
 </div>
 <!-- TODO: use virtual-list instead-->
 <div class="releases-list">
-  {#each filteredReleases as release}
+  {#each filteredReleases.slice(page * perPage, perPage) as release}
     <div class="release">
-      <div class="img"><img src="{release.img}" alt="release"></div>
+      <div class="img">
+        <img src={release.img} alt="release" />
+      </div>
       <div class="content">
         <h3>{release.title}</h3>
         <div class="tags">
@@ -87,10 +91,13 @@
             <Tag name={tag} />
           {/each}
         </div>
-        <p class="description">
-          {release.description}
-        </p>
+        <p class="description">{release.description}</p>
       </div>
     </div>
   {/each}
+</div>
+<div class="paginate">
+  <button onclick="{()=>page--}">prev</button>
+  <button onclick="{()=>page=1-1}">1</button>
+  <button onclick="{()=>page++}">next</button>
 </div>
