@@ -1,7 +1,4 @@
 <style>
-  footer {
-    /* background-color: #fff; */
-  }
   .sizer {
     max-width: 56em;
     margin: auto;

@@ -70,7 +70,7 @@
       </a>
     </div>
     <div class="placer">
-      <a href="about" class="link {segment === 'about' ? 'active' : ''}">
+      <a href="releases" class="link {segment === 'releases' ? 'active' : ''}">
         <div class="text">Releases</div>
       </a>
     </div>
@@ -80,7 +80,7 @@
       </a>
     </div>
     <div class="placer">
-      <a href="." class="link">
+      <a href="about" class="link {segment === 'about' ? 'active' : ''}">
         <div class="text">Avancement</div>
       </a>
     </div>
