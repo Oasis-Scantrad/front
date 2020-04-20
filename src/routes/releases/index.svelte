@@ -33,7 +33,9 @@
     font-size: var(--small);
     border: 0px;
     padding: var(--xs-px);
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid var(--secondary);
+    background-color:transparent;
+    color: var(--secondary);
   }
   #search:focus {
     outline: 0;
