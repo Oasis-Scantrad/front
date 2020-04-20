@@ -30,9 +30,9 @@
 
 <style>
   #search {
-    font-size: 1em;
+    font-size: var(--small);
     border: 0px;
-    padding: 5px;
+    padding: var(--xs-px);
     border-bottom: 1px solid black;
   }
   #search:focus {
@@ -59,7 +59,7 @@
     max-height: 150px;
   }
   .release > .content {
-    padding-left: 10px;
+    padding-left: var(--sm-px);
   }
   .tags {
     display: flex;

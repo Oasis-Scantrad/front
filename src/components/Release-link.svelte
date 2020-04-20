@@ -42,9 +42,9 @@
     right: 0;
     opacity: 0;
     z-index: 1;
-    background-color: #000c;
-    color: #fff;
-    padding: 10px;
+    background-color: var(--secondary);
+    color: var(--primary);
+    padding: var(--sm-px);
     transition-duration: 0.3s;
     text-decoration: none;
   }

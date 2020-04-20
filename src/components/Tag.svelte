@@ -4,7 +4,7 @@
 
 <style>
   .tag {
-    border: 1px solid black;
+    border: 1px solid var(--secondary);
     border-radius: 5px;
     padding: 0px 5px;
     font-size: 0.6em;

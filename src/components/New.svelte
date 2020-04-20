@@ -9,13 +9,13 @@
   .new {
     display: flex;
     justify-content: space-between;
-    padding-bottom: 1em;
+    padding-bottom: var(--small);
   }
   .new:nth-last-child(1) {
     padding-bottom: 0;
   }
   .content {
-    padding-left: 15px;
+    padding-left: var(--sm-px);
   }
   .title {
     display: flex;

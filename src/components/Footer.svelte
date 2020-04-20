@@ -1,8 +1,8 @@
 <style>
   .sizer {
-    max-width: 56em;
+    max-width: var(--page-width);
     margin: auto;
-    border-top: 3px solid #000;
+    border-top: 3px solid var(--secondary);
     display: flex;
     justify-content: space-around;
     padding: 1em 0;
@@ -12,7 +12,7 @@
   }
   ul {
     padding: 0;
-    margin-top: .5em;
+    margin-top: var(--xsmall);
   }
   li {
     display: block;

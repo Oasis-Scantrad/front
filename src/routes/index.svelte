@@ -22,13 +22,11 @@
     display: flex;
     background-image: url(https://via.placeholder.com/940x215);
     background-attachment: scroll;
-    backdrop-filter: blur(3px);
-    background-attachment: scroll;
     background-repeat: no-repeat;
     background-size: cover;
     justify-content: center;
     align-items: center;
-    color: #fff;
+    color: var(--primary);
   }
 
   .banner > h1 {
@@ -38,14 +36,14 @@
   .banner-height {
     height: 15em;
     margin-top: -3em;
-    margin-bottom: 1em;
+    margin-bottom: var(--small);
   }
 
   .release-roll {
     display: flex;
     justify-content: space-around;
-    padding: 10px;
-    margin-bottom: 1em;
+    padding: var(--sm-px);
+    margin-bottom: var(--small);
   }
 
   h3.part {
@@ -69,7 +67,7 @@
       name="{release.title}"
       id="{release.id}"
       description="{release.description}"
-      imgSrc="{release.imgSrc}" />
+      imgSrc="{release.img}" />
   {/each}
 </div>
 

@@ -7,20 +7,20 @@
     width: 100%;
     position: fixed;
     z-index: 10;
-    background: #fff;
+    background: var(--primary);
   }
 
   .sizer {
-    max-width: 56em;
+    max-width: var(--page-width);
     margin: auto;
     display: flex;
     align-items: center;
     justify-content: space-around;
-    border-bottom: 3px solid #000;
+    border-bottom: 3px solid var(--secondary);
   }
 
   .placer {
-    padding: 10px 0px;
+    padding: var(--sm-px) 0px;
   }
 
   a.link {
@@ -31,17 +31,17 @@
     text-transform: uppercase;
     text-decoration: none;
     font-weight: bold;
-    color: black;
+    color: var(--secondary);
     transition-duration: 0.2s;
   }
   a.link:hover,
   a.link.active {
-    background-color: black;
-    color: #fff;
+    background-color: var(--secondary);
+    color: var(--primary);
   }
 
   .logo > .link {
-    color: #000;
+    color: var(--secondary);
     position: absolute;
     width: 80px;
     height: 80px;
@@ -51,8 +51,8 @@
     padding: 0px;
     margin-left: -45px;
     margin-top: -43px;
-    border: 3px solid #000;
-    background-color: #fff;
+    border: 3px solid var(--secondary);
+    background-color: var(--primary);
     font-size: 35px;
     border-radius: 50%;
   }

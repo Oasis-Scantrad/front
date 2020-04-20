@@ -32,16 +32,16 @@
   }
 
   .col-2 {
-    padding-left: 10px;
+    padding-left: var(--sm-px);
   }
 
   .tags {
     display: flex;
-    padding-bottom: 10px;
+    padding-bottom: var(--sm-px);
     flex-wrap: wrap;
   }
   .author {
-    padding-bottom: 10px;
+    padding-bottom: var(--sm-px);
   }
   .workers {
     display: flex;
@@ -93,6 +93,7 @@
           <tr>
             <th>Numero</th>
             <th>Etat</th>
+            <th>Date</th>
             <th>Lien</th>
           </tr>
         </thead>
@@ -101,6 +102,7 @@
             <tr>
               <td>{chapter.number}</td>
               <td>{trad[chapter.state]}</td>
+              <td>{chapter.date || '-'}</td>
               <td>
                 {#if chapter.link !== undefined}
                   <a class="download" href={chapter.link}>Telecharger</a>
