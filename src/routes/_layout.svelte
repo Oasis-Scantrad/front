@@ -3,7 +3,7 @@
   import Footer from "../components/Footer.svelte";
 
   export let segment;
-  let dark = true;
+  let dark = false;
 
   const darktheme = `
   <style>:root {
