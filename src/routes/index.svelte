@@ -56,7 +56,7 @@
 </svelte:head>
 
 <div class="banner banner-height">
-  <h1>.</h1>
+  <h1>BANNER</h1>
 </div>
 <div class="banner-height placeholder" />
 
