@@ -11,7 +11,7 @@
 </script>
 
 <script>
-  import Tag from "../../components/Tag.svelte";
+  import Tag from "../../../components/Tag.svelte";
   export let release;
 
   const trad = {

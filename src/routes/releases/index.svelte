@@ -29,18 +29,6 @@
 </script>
 
 <style>
-  #search {
-    font-size: var(--small);
-    border: 0px;
-    padding: var(--xs-px);
-    border-bottom: 1px solid var(--secondary);
-    background-color:transparent;
-    color: var(--secondary);
-  }
-  #search:focus {
-    outline: 0;
-    border-bottom-width: 2px;
-  }
   .releases-list {
     max-height: calc(100vh - 250px);
     overflow: auto;

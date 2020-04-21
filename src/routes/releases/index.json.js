@@ -1,4 +1,4 @@
-import releases from './_releases'
+import releases from './[id]/_releases'
 
 const contents = JSON.stringify(releases);
 

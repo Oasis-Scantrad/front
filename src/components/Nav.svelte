@@ -85,7 +85,7 @@
       </a>
     </div>
     <div class="placer">
-      <a href="blog" class="link">
+      <a href="auth/login" class="link">
         <div class="text">Plus</div>
       </a>
     </div>

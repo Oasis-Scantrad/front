@@ -6,10 +6,11 @@
   let dark = false;
 
   const darktheme = `
-  <style>:root {
-    --primary: #222;
-    --secondary: #eee;
-  }
+  <style>
+    :root {
+      --primary: #222;
+      --secondary: #eee;
+    }
   </style>`;
 </script>
 
@@ -20,17 +21,34 @@
     margin: 0 auto;
     box-sizing: border-box;
   }
+
+  :global(input) {
+    font-size: var(--small);
+    border: 0px;
+    padding: var(--xs-px);
+    border-bottom: 1px solid var(--secondary);
+    background-color:transparent;
+    color: var(--secondary);
+  }
+
+  :global(input):focus {
+    outline: 0;
+    border-bottom-width: 2px;
+  }
+
   :global(:root) {
     --primary: #eee;
     --secondary: #222;
     --emphasis: #22863a;
     --page-width: 56em;
+    --large: 4em;
     --medium: 2em;
     --small: 1em;
     --xsmall: 0.5em;
     --sm-px: 10px;
     --xs-px: 5px;
   }
+
   :global(body) {
     background-color: var(--primary);
     color: var(--secondary);
