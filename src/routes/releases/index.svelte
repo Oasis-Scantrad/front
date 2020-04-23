@@ -10,16 +10,17 @@
 
 <script>
   import Tag from "../../components/Tag.svelte";
+  import query from 'query-store';
+
   export let releases;
-  let search = "";
   let filteredReleases = [];
   const perPage = 5;
   let page = 0;
 
   $: filteredReleases = releases.filter(r => {
-    const rx = new RegExp(search);
+    const rx = new RegExp($query.search);
     return (
-      search === "" ||
+      $query.search === "" ||
       rx.test(r.title) ||
       rx.test(r.description) ||
       rx.test(r.author) ||
@@ -60,7 +61,7 @@
   <h1>Bouquins</h1>
   <div>
     <input
-      bind:value={search}
+      bind:value={$query.search}
       type="text"
       name="search"
       id="search"
