@@ -1,5 +1,6 @@
 <script>
   import Button from "../../components/Button.svelte";
+  import { amILogged, logout } from "../../helpers/auth";
   let username;
   let password;
 
@@ -34,6 +35,7 @@
 <svelte:head>
   <title>Login - OS</title>
 </svelte:head>
+{#if !amILogged()}
 <form class="login-form">
   <h1>Connexion</h1>
   <input
@@ -48,3 +50,7 @@
     placeholder="Password" />
   <Button text="se connecter" on:click={() => login()} />
 </form>
+{:else}
+  <h3>You are already connected</h3>
+  <button on:click={logout}>logout</button>
+{/if}

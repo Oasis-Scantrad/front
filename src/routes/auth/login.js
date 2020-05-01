@@ -5,8 +5,12 @@ export function post(req, res, next) {
     if (res.isAuthenticated) return res.ok();
     const { username, password } = req.body;
     login(username, password).then(token => {
-        authenticate(res, req, token);
-        res.ok();
+        authenticate(req, res, token);
+        res.writeHead(200, {
+            'Content-Type': 'application/json',
+            'Set-Cookie': `Authorization=${req.authToken}`
+        });
+        res.end(JSON.stringify({message: 'ok'}));
     }).catch(e => {
         res.error(401, e.toString());
     })

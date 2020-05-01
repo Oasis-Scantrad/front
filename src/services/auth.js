@@ -7,8 +7,8 @@ import { generate } from 'shortid'
 const salty = (password) => `${password}/${process.env.SALT2}`;
 
 const hashPass = (password) => crypto.createHmac('sha256', process.env.SALT)
-        .update(salty(password))
-        .digest('hex')
+    .update(salty(password))
+    .digest('hex')
 
 const makeToken = (user, session = {}) => {
     return jwt.sign(
@@ -38,18 +38,21 @@ export async function signin(username, password) {
     db.get('users').push({ username, id: generate(), passwordHash: hashPass(password) }).write();
 }
 
-export const authenticate = (req, res, token = req.headers['authorization']) => {
-    if (req.authToken !== undefined) return true;
+export const authenticate = (req, res, token) => {
+    
+    token = token || req.cookies.Authorization;
+    if (req.authToken !== undefined) {
+        return true;
+    }
     try {
         if (!token) return false;
         req.session = jwt.verify(token, process.env.JWT_KEY)
         req.authToken = token;
         req.isAuthenticated = true;
-        res.headers['authorization'] = req.authToken;
         return true;
     } catch (e) {
         req.isAuthenticated = false;
-        return false;
+        return e;
     }
 }
 

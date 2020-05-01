@@ -5,6 +5,7 @@ import * as sapper from '@sapper/server';
 import { database } from './services/db';
 import { auth } from './services/auth';
 import * as bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
 
 const { PORT, NODE_ENV } = process.env;
 const dev = NODE_ENV === 'development';
@@ -14,6 +15,7 @@ polka() // You can also use Express
 		compression({ threshold: 0 }),
 		sirv('static', { dev }),
 		bodyParser.json(),
+		cookieParser(),
 		(req, res, next) => {
 			res.ok = () => {
 				res.writeHead(200, {
