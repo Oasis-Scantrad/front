@@ -11,7 +11,7 @@
 <script>
   import ReleaseLink from "../components/Release-link.svelte";
   import New from "../components/New.svelte";
-  export let releases;
+  export let releases = [];
 </script>
 
 <style>
@@ -62,12 +62,12 @@
 
 <h3 class="part">Dernieres sorties</h3>
 <div class="release-roll">
-  {#each releases.slice(0,3) as release}
+  {#each releases.slice(0, 3) as release}
     <ReleaseLink
-      name="{release.title}"
-      id="{release.id}"
-      description="{release.description}"
-      imgSrc="{release.img}" />
+      name={release.title}
+      id={release.id}
+      description={release.description}
+      imgSrc={release.img} />
   {/each}
 </div>
 

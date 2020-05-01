@@ -1,11 +1,9 @@
-import releases from './[id]/_releases'
+import { db } from '../../services/db'
 
-const contents = JSON.stringify(releases);
-
-export function get(req, res) {
+export async function get(req, res) {
   res.writeHead(200, {
     'Content-Type': 'application/json'
   });
 
-  res.end(contents);
+  res.end(JSON.stringify(db.get('releases').values()));
 }

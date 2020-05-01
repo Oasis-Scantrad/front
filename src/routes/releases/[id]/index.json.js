@@ -1,28 +1,12 @@
-import releases from './_releases';
-
-const lookup = new Map();
-releases.forEach(release => {
-  lookup.set(release.id, JSON.stringify(release));
-});
+import { db } from '../../../services/db'
 
 export function get(req, res, next) {
-  // the `slug` parameter is available because
-  // this file is called [slug].json.js
   const { id } = req.params;
+  res.dbGet('releases', id);
+}
 
-  if (lookup.has(+id)) {
-    res.writeHead(200, {
-      'Content-Type': 'application/json'
-    });
-
-    res.end(lookup.get(+id));
-  } else {
-    res.writeHead(404, {
-      'Content-Type': 'application/json'
-    });
-
-    res.end(JSON.stringify({
-      message: `Not found`
-    }));
-  }
+export function post(req, res) {
+  req.needAuth();
+  // TODO: check that
+  res.dbPut(req.body);
 }

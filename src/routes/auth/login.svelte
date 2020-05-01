@@ -2,6 +2,19 @@
   import Button from "../../components/Button.svelte";
   let username;
   let password;
+
+  function login() {
+    fetch("auth/login", {
+      method: "POST",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ username, password })
+    })
+      .then(r => r.json())
+      .then(r => console.log(r));
+  }
 </script>
 
 <style>
@@ -33,7 +46,5 @@
     autocomplete="current-password"
     bind:value={password}
     placeholder="Password" />
-  <Button
-    text="se connecter"
-    on:click={() => alert(`TODO: send ${username} + ${password}`)} />
+  <Button text="se connecter" on:click={() => login()} />
 </form>

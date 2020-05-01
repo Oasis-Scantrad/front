@@ -12,7 +12,7 @@
   import Tag from "../../components/Tag.svelte";
   import query from 'query-store';
 
-  export let releases;
+  export let releases = [];
   let filteredReleases = [];
   const perPage = 5;
   let page = 0;
