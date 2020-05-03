@@ -1,3 +1,8 @@
+<script>
+  import { stores, goto } from "@sapper/app";
+  const { session } = stores();
+</script>
+
 <style>
   .sizer {
     max-width: var(--page-width);
@@ -61,3 +66,7 @@
     </div>
   </div>
 </footer>
+
+<pre>
+Session:
+{JSON.stringify($session, null, 2)}</pre>

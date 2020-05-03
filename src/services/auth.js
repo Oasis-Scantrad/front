@@ -14,7 +14,7 @@ const hashPass = (password) =>
 
 const makeToken = (user, session = {}) => {
   return jwt.sign(
-    Object.assign({ userId: user._id, username: user.username }, session),
+    Object.assign({ userId: user.id, username: user.username }, session),
     process.env.JWT_KEY,
     { expiresIn: "1d" }
   );
@@ -45,8 +45,7 @@ export async function signin(username, password) {
     .write();
 }
 
-export const authenticate = (req, res, token) => {
-  token = token || req.cookies.authToken;
+export const authenticate = (req, res, token = req.cookies.authToken) => {
   req.auth = req.auth || {
     logged: false,
   };
@@ -70,6 +69,7 @@ export function auth(req, res, next) {
     fill(db);
   }
   authenticate(req, res);
+
   req.needAuth = () => {
     if (req.auth.logged) return;
     res.writeHead(401, {
@@ -85,7 +85,7 @@ export function auth(req, res, next) {
   res.logout = (data = { message: "Successfully logged out" }, code = 200) => {
     res.writeHead(code, {
       "Content-Type": "application/json",
-      "Set-Cookie": `authToken=delete; Max-Age=0`,
+      "Set-Cookie": `authToken=delete; Path=/; Max-Age=0`,
     });
 
     res.end(JSON.stringify(data));
@@ -93,9 +93,9 @@ export function auth(req, res, next) {
   res.login = () => {
     res.writeHead(200, {
       "Content-Type": "application/json",
-      "Set-Cookie": `authToken=${req.auth.token}; HttpOnly`,
+      "Set-Cookie": `authToken=${req.auth.token}; Path=/; HttpOnly`,
     });
-    res.end(JSON.stringify({ message: "ok" }));
+    res.end(JSON.stringify({ message: "ok", auth: req.auth }));
   };
   next();
 }

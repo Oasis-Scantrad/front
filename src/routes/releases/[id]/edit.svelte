@@ -1,6 +1,6 @@
 <script context="module">
-  export async function preload({ params, query }) {
-    const res = await this.fetch(`releases/${params.id}.json`);
+  export async function preload({ params }) {
+    const res = await this.fetch(`releases/${params.id}.json`, {credentials: 'include'});
     const data = await res.json();
     if (res.status === 200) {
       return { release: data };
@@ -12,7 +12,11 @@
 
 <script>
   import Tag from "../../../components/Tag.svelte";
+  import { stores, goto } from "@sapper/app";
   export let release;
+
+  const { session } = stores();
+  if (!$session.auth.logged) goto("/auth/login");
 
   const trad = {
     done: "Termine",

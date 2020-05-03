@@ -28,7 +28,7 @@
       })
       .then(r => {
         if (loginError) return;
-        session.update(s => ({ ...s, auth: { logged: true } }));
+        session.update(s => ({ ...s, auth: r.auth }));
         goto("/");
       });
   }

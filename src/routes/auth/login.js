@@ -1,8 +1,9 @@
 import { login, authenticate } from "../../services/auth";
 
-export function post(req, res, next) {
+export function post(req, res) {
   // avoid double login
-  if (req.auth.logged) return res.ok();
+  console.log('HI')
+  if (req.auth.logged) return console.log('dasdasd') || res.ok();
   const { username, password } = req.body;
   login(username, password)
     .then((token) => {
