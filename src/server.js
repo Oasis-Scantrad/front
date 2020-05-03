@@ -1,42 +1,42 @@
-import sirv from 'sirv';
-import polka from 'polka';
-import compression from 'compression';
-import * as sapper from '@sapper/server';
-import { database } from './services/db';
-import { auth } from './services/auth';
-import * as bodyParser from 'body-parser';
-import cookieParser from 'cookie-parser';
+import sirv from "sirv";
+import polka from "polka";
+import compression from "compression";
+import * as sapper from "@sapper/server";
+import { database } from "./services/db";
+import { auth } from "./services/auth";
+import * as bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
 
 const { PORT, NODE_ENV } = process.env;
-const dev = NODE_ENV === 'development';
+const dev = NODE_ENV === "development";
 
 polka() // You can also use Express
-	.use(
-		compression({ threshold: 0 }),
-		sirv('static', { dev }),
-		bodyParser.json(),
-		cookieParser(),
-		(req, res, next) => {
-			res.ok = (message = 'ok') => {
-				res.writeHead(200, {
-					'Content-Type': 'application/json'
-				});
-				res.end(JSON.stringify({ message }));
-			}
-			res.error = (code, text) => {
-				res.writeHead(code, {
-					'Content-Type': 'application/json'
-				});
-				res.end(JSON.stringify({ message: text }));
-			}
-			next();
-		},
-		database,
-		auth,
-		sapper.middleware({
-			session: ({ auth }) => ({ auth })
-		})
-	)
-	.listen(PORT, err => {
-		if (err) console.log('error', err);
-	});
+  .use(
+    compression({ threshold: 0 }),
+    sirv("static", { dev }),
+    bodyParser.json(),
+    cookieParser(),
+    (req, res, next) => {
+      res.ok = (message = "ok") => {
+        res.writeHead(200, {
+          "Content-Type": "application/json",
+        });
+        res.end(JSON.stringify({ message }));
+      };
+      res.error = (code, text) => {
+        res.writeHead(code, {
+          "Content-Type": "application/json",
+        });
+        res.end(JSON.stringify({ message: text }));
+      };
+      next();
+    },
+    database,
+    auth,
+    sapper.middleware({
+      session: ({ auth }) => ({ auth }),
+    })
+  )
+  .listen(PORT, (err) => {
+    if (err) console.log("error", err);
+  });
