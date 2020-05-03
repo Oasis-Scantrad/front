@@ -89,5 +89,5 @@
   </div>
 {:else}
   <h3>You are already connected</h3>
-  <button on:click={logout}>logout</button>
+  <Button text='logout' on:click={logout}/>
 {/if}

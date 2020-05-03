@@ -10,12 +10,36 @@
 
 <script>
   import Tag from "../../components/Tag.svelte";
-  import query from 'query-store';
+  import Button from "../../components/Button.svelte";
+  import query from "query-store";
+  import { onMount } from "svelte";
 
   export let releases = [];
   let filteredReleases = [];
-  const perPage = 5;
-  let page = 0;
+  let currentPage;
+  onMount(() => {
+    if ($query.tag !== undefined) {
+      releases = releases.filter(r => r.tags.some(t => $query.tag === t));
+    }
+    if ($query.page === undefined) {
+      $query.page = 1;
+    }
+    setPage(+$query.page, true);
+  });
+
+  const perPage = 3;
+  function next(by = 1) {
+    setPage(+$query.page + by);
+  }
+  function setPage(page, correctWhenWrong = false) {
+    if (page <= maxPage && page > 0) {
+      $query.page = page;
+      currentPage = page;
+    } else if (correctWhenWrong) {
+      $query.page = 1;
+      currentPage = 1;
+    }
+  }
 
   $: filteredReleases = releases.filter(r => {
     const rx = new RegExp($query.search);
@@ -27,6 +51,8 @@
       r.tags.some(t => rx.test(t))
     );
   });
+  $: maxPage = Math.ceil(filteredReleases.length / perPage);
+  $: setPage(+currentPage);
 </script>
 
 <style>
@@ -55,6 +81,14 @@
   .tags {
     display: flex;
   }
+
+  .paginate {
+    text-align: center;
+  }
+  .paginate > input {
+    width: 3em;
+    text-align: center;
+  }
 </style>
 
 <div class="releases-header">
@@ -68,15 +102,17 @@
       placeholder="Search" />
   </div>
 </div>
-<!-- TODO: use virtual-list instead-->
+
 <div class="releases-list">
-  {#each filteredReleases.slice(page * perPage, perPage) as release}
+  {#each filteredReleases.slice(($query.page - 1) * perPage, ($query.page - 1) * perPage + perPage) as release}
     <div class="release">
       <div class="img">
         <img src={release.img} alt="release" />
       </div>
       <div class="content">
-        <h3><a href="releases/{release.id}">{release.title}</a></h3>
+        <h3>
+          <a href="releases/{release.id}">{release.title}</a>
+        </h3>
         <div class="tags">
           {#each release.tags as tag}
             <Tag name={tag} />
@@ -88,10 +124,17 @@
   {/each}
 </div>
 <div class="paginate">
-  <!--
-    TODO: create a true pagination
-  -->
-  <button onclick="{()=>page--}">prev</button>
-  <button onclick="{()=>page=1-1}">1</button>
-  <button onclick="{()=>page++}">next</button>
+  {#if $query.page !== 1}
+    <Button text="1" on:click={() => setPage(1)} />
+  {/if}
+  {#if $query.page - 1 > 1}
+    <Button text="<" on:click={() => setPage($query.page - 1)} />
+  {/if}
+  <input type="text" bind:value={currentPage} />
+  {#if $query.page + 1 < maxPage}
+    <Button text=">" on:click={() => setPage($query.page + 1)} />
+  {/if}
+  {#if $query.page !== maxPage}
+    <Button text={maxPage} on:click={() => setPage(maxPage)} />
+  {/if}
 </div>
