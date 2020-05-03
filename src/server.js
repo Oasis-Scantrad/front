@@ -17,11 +17,11 @@ polka() // You can also use Express
 		bodyParser.json(),
 		cookieParser(),
 		(req, res, next) => {
-			res.ok = () => {
+			res.ok = (message = 'ok') => {
 				res.writeHead(200, {
 					'Content-Type': 'application/json'
 				});
-				res.end(JSON.stringify({ message: 'Ok' }));
+				res.end(JSON.stringify({ message }));
 			}
 			res.error = (code, text) => {
 				res.writeHead(code, {
@@ -33,7 +33,9 @@ polka() // You can also use Express
 		},
 		database,
 		auth,
-		sapper.middleware()
+		sapper.middleware({
+			session: ({ auth }) => ({ auth })
+		})
 	)
 	.listen(PORT, err => {
 		if (err) console.log('error', err);

@@ -39,20 +39,21 @@ export async function signin(username, password) {
 }
 
 export const authenticate = (req, res, token) => {
-    
-    token = token || req.cookies.Authorization;
-    if (req.authToken !== undefined) {
+    token = token || req.cookies.authToken;
+    req.auth = req.auth || {
+        logged: false
+    }
+    if (req.auth.token !== undefined) {
         return true;
     }
     try {
         if (!token) return false;
-        req.session = jwt.verify(token, process.env.JWT_KEY)
-        req.authToken = token;
-        req.isAuthenticated = true;
+        req.auth.session = jwt.verify(token, process.env.JWT_KEY)
+        req.auth.token = token;
+        req.auth.logged = true;
         return true;
-    } catch (e) {
-        req.isAuthenticated = false;
-        return e;
+    } catch (error) {
+        res.logout({ error })
     }
 }
 
@@ -63,7 +64,7 @@ export function auth(req, res, next) {
     }
     authenticate(req, res);
     req.needAuth = () => {
-        if (req.isAuthenticated) return;
+        if (req.auth.logged) return;
         res.writeHead(401, {
             'Content-Type': 'application/json'
         });
@@ -71,6 +72,21 @@ export function auth(req, res, next) {
         res.end(JSON.stringify({
             message: `Unauthorized`
         }));
+    }
+    res.logout = (data = {message: 'Successfully logged out'}, code = 200) => {
+        res.writeHead(code, {
+            'Content-Type': 'application/json',
+            'Set-Cookie': `authToken=delete; Max-Age=0`
+        });
+
+        res.end(JSON.stringify(data));
+    }
+    res.login = () => {
+        res.writeHead(200, {
+            'Content-Type': 'application/json',
+            'Set-Cookie': `authToken=${req.auth.token}; HttpOnly`
+        });
+        res.end(JSON.stringify({ message: 'ok' }));
     }
     next();
 }

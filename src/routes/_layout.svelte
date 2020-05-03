@@ -3,7 +3,12 @@
   import Footer from "../components/Footer.svelte";
 
   export let segment;
-  let dark = false;
+  let dark = (globalThis.localStorage && globalThis.localStorage.getItem('theme') === 'dark') || false;
+
+  function toggleTheme() {
+    globalThis.localStorage.setItem('theme', dark ? 'light' : 'dark')
+    dark = !dark;
+  }
 
   const darktheme = `
   <style>
@@ -40,6 +45,7 @@
     --primary: #eee;
     --secondary: #222;
     --emphasis: #22863a;
+    --error: #b91515;
     --page-width: 56em;
     --large: 4em;
     --medium: 2em;
@@ -68,4 +74,4 @@
   {@html dark ? darktheme : ''}
 </div>
 
-<button on:click={() => (dark = !dark)} >toggle theme</button>
+<button on:click={toggleTheme} >toggle theme</button>
