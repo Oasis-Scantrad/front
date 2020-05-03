@@ -12,6 +12,9 @@
 
 <script>
   import Tag from "../../../components/Tag.svelte";
+  import Button from "../../../components/Button.svelte";
+  import { stores, goto } from "@sapper/app";
+  const { session } = stores();
   export let release;
 
   const trad = {
@@ -23,6 +26,7 @@
   $: workers = release.chapters
     .flatMap(c => c.editors)
     .filter((value, index, self) => self.indexOf(value) === index);
+
 </script>
 
 <style>
@@ -58,7 +62,11 @@
 <svelte:head>
   <title>{release.title}</title>
 </svelte:head>
-
+{#if $session.auth.logged}
+  <div style="text-align:right">
+    <Button text="modifier" on:click={()=>{goto(location.href+'/edit')}} />
+  </div>
+{/if}
 <div class="placer">
   <div class="col-1">
     <div class="release-img">

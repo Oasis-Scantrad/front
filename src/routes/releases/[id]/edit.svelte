@@ -1,6 +1,8 @@
 <script context="module">
   export async function preload({ params }) {
-    const res = await this.fetch(`releases/${params.id}.json`, {credentials: 'include'});
+    const res = await this.fetch(`releases/${params.id}.json`, {
+      credentials: "include"
+    });
     const data = await res.json();
     if (res.status === 200) {
       return { release: data };
@@ -12,11 +14,14 @@
 
 <script>
   import Tag from "../../../components/Tag.svelte";
+  import Button from "../../../components/Button.svelte";
   import { stores, goto } from "@sapper/app";
   export let release;
 
   const { session } = stores();
   if (!$session.auth.logged) goto("/auth/login");
+
+  let tags = release.tags.join(", ");
 
   const trad = {
     done: "Termine",
@@ -57,6 +62,33 @@
   th {
     text-align: left;
   }
+  input {
+    width: 100%;
+  }
+
+  .release-img > img {
+    max-width: 150px;
+    max-height: 250px;
+  }
+  .input-holder {
+    display: flex;
+    margin-bottom: 5px;
+  }
+  .input-holder :global(button) {
+    padding-top: 6px;
+    padding-bottom: 6px;
+  }
+
+  .input-holder.number > input {
+    width: 55px;
+  }
+
+  textarea {
+    min-height: 200px;
+  }
+  .actions {
+    text-align: right;
+  }
 </style>
 
 <svelte:head>
@@ -67,16 +99,23 @@
   <div class="col-1">
     <div class="release-img">
       <img src={release.img} alt="release image" />
+      <span>
+        <br />
+        URL:
+      </span>
+      <div class="input-holder">
+        <input type="text" bind:value={release.img} />
+      </div>
     </div>
     <h3>Tags</h3>
     <div class="tags">
-      {#each release.tags as tag}
-        <Tag name={tag} />
-      {/each}
+      <input type="text" bind:value={tags} id="" />
     </div>
     <div class="author">
       <h3>Auteur</h3>
-      <a href=".">{release.author}</a>
+      <div class="input-holder">
+        <input type="text" bind:value={release.author} />
+      </div>
     </div>
     <h3>Equipe</h3>
     <div class="workers">
@@ -87,8 +126,14 @@
   </div>
   <div class="col-2">
     <div class="desc">
-      <h1>{release.title}</h1>
-      <p class="content">{release.description}</p>
+      <h1>
+        Mode edition:
+        <br />
+        <input type="text" bind:value={release.title} />
+      </h1>
+      <p class="content">
+        <textarea bind:value={release.description} />
+      </p>
     </div>
     <div class="chapters">
       <h2>Chapitres</h2>
@@ -102,20 +147,54 @@
           </tr>
         </thead>
         <tbody>
-          {#each release.chapters as chapter}
+          {#each release.chapters.sort((a, b) => a.number - b.number) as chapter, index}
             <tr>
-              <td>{chapter.number}</td>
-              <td>{trad[chapter.state]}</td>
-              <td>{chapter.date || '-'}</td>
               <td>
-                {#if chapter.link !== undefined}
-                  <a class="download" href={chapter.link}>Telecharger</a>
-                {/if}
+                <div class="input-holder number">
+                  <input type="text" bind:value={chapter.number} />
+                </div>
+              </td>
+              <td>
+                <div class="input-holder">
+                  <select bind:value={chapter.state}>
+                    {#each Object.entries(trad) as [key, value]}
+                      <option value={key}>{value}</option>
+                    {/each}
+                  </select>
+                </div>
+              </td>
+              <td>
+                <div class="input-holder">
+                  <input type="text" bind:value={chapter.date} />
+                </div>
+              </td>
+              <td>
+                <div class="input-holder">
+                  <input type="text" bind:value={chapter.link} />
+                </div>
+              </td>
+              <td>
+                <div class="input-holder">
+                  <Button
+                    text="-"
+                    on:click={() => (release.chapters = release.chapters.filter((c, i) => i !== index))} />
+                </div>
               </td>
             </tr>
           {/each}
+          <tr>
+            <td colspan="4">
+              <Button
+                text="Ajouter"
+                on:click={() => (release.chapters = [...release.chapters, { number: release.chapters[release.chapters.length - 1].number + 1, title: '', state: 'todo', date: '', editors: [] }])} />
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>
   </div>
+</div>
+<div class="actions">
+  <Button text="Annuler" />
+  <Button text="Enregistrer" />
 </div>

@@ -3,20 +3,18 @@
   import Footer from "../components/Footer.svelte";
 
   export let segment;
-  let dark = (globalThis.localStorage && globalThis.localStorage.getItem('theme') === 'dark') || false;
+  let dark =
+    (globalThis.localStorage &&
+      globalThis.localStorage.getItem("theme") === "dark") ||
+    false;
 
   function toggleTheme() {
-    globalThis.localStorage.setItem('theme', dark ? 'light' : 'dark')
+    globalThis.localStorage.setItem("theme", dark ? "light" : "dark");
     dark = !dark;
   }
 
   const darktheme = `
-  <style>
-    :root {
-      --primary: #222;
-      --secondary: #eee;
-    }
-  </style>`;
+  <style ✂prettier:content✂="CiAgICA6cm9vdCB7CiAgICAgIC0tcHJpbWFyeTogIzIyMjsKICAgICAgLS1zZWNvbmRhcnk6ICNlZWU7CiAgICB9CiAg" ✂prettier:content✂=""></style>`;
 </script>
 
 <style>
@@ -25,18 +23,32 @@
     padding: var(--medium);
     margin: 0 auto;
     box-sizing: border-box;
+    text-align: justify;
   }
 
-  :global(input) {
+  :global(textarea) {
+    font-family: inherit;
+    text-align: justify;
+  }
+
+  :global(input[type="text"]),
+  :global(input[type="number"]),
+  :global(select),
+  :global(textarea) {
+    width: 100%;
     font-size: var(--small);
     border: 0px;
     padding: var(--xs-px);
     border-bottom: 1px solid var(--secondary);
-    background-color:transparent;
+    background-color: transparent;
     color: var(--secondary);
+    background-color: #0001;
   }
 
-  :global(input):focus {
+  :global(input[type="text"]:focus),
+  :global(input[type="number"]:focus),
+  :global(select:focus),
+  :global(textarea:focus) {
     outline: 0;
     border-bottom-width: 2px;
   }
@@ -58,7 +70,7 @@
   :global(body) {
     background-color: var(--primary);
     color: var(--secondary);
-    transition-duration: .3s;
+    transition-duration: 0.3s;
   }
 </style>
 
@@ -74,4 +86,4 @@
   {@html dark ? darktheme : ''}
 </div>
 
-<button on:click={toggleTheme} >toggle theme</button>
+<button on:click={toggleTheme}>toggle theme</button>
