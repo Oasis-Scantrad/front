@@ -11,32 +11,13 @@
 <script>
   import Tag from "../../components/Tag.svelte";
   import Button from "../../components/Button.svelte";
+  import Paginate from "../../components/Paginate.svelte";
   import query from "query-store";
-  import { onMount } from "svelte";
 
   export let releases = [];
   let filteredReleases = [];
-  let currentPage;
-  onMount(() => {
-    if ($query.page === undefined) {
-      $query.page = 1;
-    }
-    setPage(+$query.page, true);
-  });
+  let perPage = 5;
 
-  const perPage = 5;
-  function next(by = 1) {
-    setPage(+$query.page + by);
-  }
-  function setPage(page, correctWhenWrong = false) {
-    if (page <= maxPage && page > 0) {
-      $query.page = page;
-      currentPage = page;
-    } else if (correctWhenWrong) {
-      currentPage = 1;
-      $query.page = 1;
-    }
-  }
 
   $: filteredReleases = releases
     .filter(r => r.tags.some(t => $query.tag === undefined || $query.tag === t))
@@ -50,8 +31,10 @@
         r.tags.some(t => rx.test(t))
       );
     });
-  $: maxPage = Math.ceil(filteredReleases.length / perPage);
-  $: setPage(+currentPage, filteredReleases);
+    
+    let currentPage;
+    $: $query.page = currentPage
+
 </script>
 
 <style>
@@ -80,15 +63,6 @@
   .tags {
     display: flex;
   }
-
-  .paginate {
-    text-align: center;
-  }
-  .paginate > input {
-    width: 3em;
-    box-sizing: border-box;
-    text-align: right;
-  }
 </style>
 
 <div class="releases-header">
@@ -100,9 +74,15 @@
       name="search"
       id="search"
       placeholder="Search" />
+    {#if $query.tag}
+      <Button
+        text="[ {$query.tag} ]"
+        size="small"
+        on:click={() => ($query.tag = undefined)} />
+    {/if}
   </div>
 </div>
-{#if maxPage !== 0}
+{#if filteredReleases.length !== 0}
   <div class="releases-list">
     {#each filteredReleases.slice(($query.page - 1) * perPage, ($query.page - 1) * perPage + perPage) as release}
       <div class="release">
@@ -123,21 +103,7 @@
       </div>
     {/each}
   </div>
-  <div class="paginate">
-    {#if $query.page !== 1}
-      <Button text="1" on:click={() => setPage(1)} />
-    {/if}
-    {#if $query.page - 1 > 1}
-      <Button text="<" on:click={() => setPage($query.page - 1)} />
-    {/if}
-    <input type="number" min={1} max={maxPage} bind:value={currentPage} />
-    {#if $query.page + 1 < maxPage}
-      <Button text=">" on:click={() => setPage($query.page + 1)} />
-    {/if}
-    {#if $query.page !== maxPage}
-      <Button text={maxPage} on:click={() => setPage(maxPage)} />
-    {/if}
-  </div>
+  <Paginate bind:currentPage={currentPage} list={filteredReleases} {perPage} />
 {:else}
   <h3>Aucun bouquins</h3>
 {/if}
