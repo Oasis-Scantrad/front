@@ -20,22 +20,45 @@
   let perPage = 3;
   let currentPage;
   $: $query.page = currentPage;
+  $: filteredNews = news
+    .filter(n => {
+      const rx = new RegExp($query.search);
+      return (
+        $query.search === "" ||
+        rx.test(n.title) ||
+        rx.test(n.content) ||
+        rx.test(n.author)
+      );
+    });
 </script>
 
 <style>
-
+  .news-header {
+    display: flex;
+    justify-content: space-between;
+  }
 </style>
 
 <svelte:head>
   <title>Blog</title>
 </svelte:head>
 
-<h1>Dernieres news</h1>
-{#if news.length > 0}
-  {#each news.slice((currentPage - 1) * perPage, (currentPage - 1) * perPage + perPage) as anew}
+<div class="news-header">
+  <h1>Dernieres news</h1>
+  <div>
+    <input
+      bind:value={$query.search}
+      type="text"
+      name="search"
+      id="search"
+      placeholder="Search" />
+  </div>
+</div>
+{#if filteredNews.length > 0}
+  {#each filteredNews.slice((currentPage - 1) * perPage, (currentPage - 1) * perPage + perPage) as anew}
     <New {...anew} />
   {/each}
-  <Paginate bind:currentPage list={news} {perPage} />
+  <Paginate bind:currentPage list={filteredNews} {perPage} />
 {:else}
   <h3>Pas de nouvelle, bonne nouvelle ;)</h3>
 {/if}
@@ -44,7 +67,7 @@
     <Button
       text="ajouter"
       on:click={() => {
-        goto(location.origin+location.pathname + '/add');
+        goto(location.origin + location.pathname + '/add');
       }} />
   </div>
 {/if}

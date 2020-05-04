@@ -7,3 +7,9 @@ export async function get(req, res) {
 
   res.end(JSON.stringify(db.get("news").values()));
 }
+
+
+export function post(req, res) {
+  req.needAuth();
+  res.dbCreate('news', req.body);
+}

@@ -39,8 +39,6 @@
 
 <style>
   .releases-list {
-    max-height: calc(100vh - 250px);
-    overflow: auto;
     transition-duration: 0.3s;
   }
   .releases-header {
