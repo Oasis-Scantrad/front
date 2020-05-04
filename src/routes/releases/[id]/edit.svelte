@@ -19,6 +19,7 @@
   export let release;
   export let saveText = "Enregistrer";
   export let editText = "edition";
+  export let postUrl = `/releases/${release.id}.json`;
 
   const { session } = stores();
   if (!$session.auth.logged) goto("/auth/login");
@@ -33,7 +34,7 @@
 
   async function save() {
     release.tags = tags.split(",").map(t => t.trim().toLowerCase());
-    const res = await fetch(`/releases/${release.id}.json`, {
+    const res = await fetch(postUrl, {
       method: "POST",
       credentials: "include",
       headers: {
@@ -42,11 +43,11 @@
       body: JSON.stringify(release)
     });
     console.log(await res.json());
-    goto(location.href + "/..");
+    goto(location.origin+location.pathname + "/..");
   }
 
   function addChapter() {
-    const last = release.chapters[release.chapters.length - 1] || {number:0}
+    const last = release.chapters[release.chapters.length - 1] || { number: 0 };
     release.chapters = [
       ...release.chapters,
       {
@@ -129,7 +130,9 @@
 <div class="placer">
   <div class="col-1">
     <div class="release-img">
-      <img src={release.img || 'https://via.placeholder.com/150x200'} alt="release image" />
+      <img
+        src={release.img || 'https://via.placeholder.com/150x200'}
+        alt="release image" />
       <span>
         <br />
         URL:
@@ -225,5 +228,5 @@
 </div>
 <div class="actions">
   <Button text="Annuler" />
-  <Button text="{saveText}" on:click={save} />
+  <Button text={saveText} on:click={save} />
 </div>

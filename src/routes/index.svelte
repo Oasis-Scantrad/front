@@ -1,17 +1,18 @@
 <script context="module">
-  export function preload({ params, query }) {
-    return this.fetch(`releases.json`)
-      .then(r => r.json())
-      .then(releases => {
-        return { releases };
-      });
+  export async function preload({ params }) {
+    const releases = await this.fetch(`releases.json`).then(r => r.json());
+    const news = await this.fetch(`news.json`).then(r => r.json());
+    return { releases, news };
   }
 </script>
 
 <script>
   import ReleaseLink from "../components/Release-link.svelte";
+  import Button from "../components/Button.svelte";
   import New from "../components/New.svelte";
+  import { goto } from "@sapper/app";
   export let releases = [];
+  export let news = [];
 </script>
 
 <style>
@@ -73,38 +74,10 @@
 
 <h3 class="part">Dernieres news</h3>
 <div class="last-news">
-  <New
-    title="Site en construction"
-    author="https://via.placeholder.com/200x450?text=author"
-    date="19.04.2020"
-    content={`<img
-          src="https://via.placeholder.com/200x80"
-          alt="some image"
-          style="float:left;margin: 0 10px;" />
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry. Lorem Ipsum has been the industry's standard dummy text ever
-        since the 1500s, when an unknown printer took a galley of type and
-        scrambled it to make a type specimen book. It has survived not only five
-        centuries, but also the leap into electronic typesetting, remaining
-        essentially unchanged. It was popularised in the 1960s with the release
-        of Letraset sheets containing Lorem Ipsum passages, and more recently
-        with desktop publishing software like Aldus PageMaker including versions
-        of Lorem Ipsum.`} />
-  <New
-    title="Happ Site en construction"
-    author="https://via.placeholder.com/200x450?text=author"
-    date="18.04.2020"
-    content={`<img
-          src="https://via.placeholder.com/100x140"
-          alt="some image"
-          style="float:left;margin: 0 10px;" />
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry. Lorem Ipsum has been the industry's standard dummy text ever
-        since the 1500s, when an unknown printer took a galley of type and
-        scrambled it to make a type specimen book. It has survived not only five
-        centuries, but also the leap into electronic typesetting, remaining
-        essentially unchanged. It was popularised in the 1960s with the release
-        of Letraset sheets containing Lorem Ipsum passages, and more recently
-        with desktop publishing software like Aldus PageMaker including versions
-        of Lorem Ipsum.`} />
+  {#each news.slice(0, 2) as anew}
+    <New {...anew} />
+  {/each}
+</div>
+<div style="text-align:center">
+  <Button text="Plus" on:click={_ => goto('/news')} />
 </div>

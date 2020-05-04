@@ -1,8 +1,12 @@
 <script>
+  import { formatDistance } from "date-fns";
+  import Button from './Button.svelte';
+  import { goto } from "@sapper/app";
   export let title;
   export let author;
   export let date;
   export let content;
+  export let id;
 </script>
 
 <style>
@@ -16,6 +20,7 @@
   }
   .content {
     padding-left: var(--sm-px);
+    flex: auto;
   }
   .title {
     display: flex;
@@ -28,12 +33,13 @@
 
 <div class="new">
   <div class="author">
-    <img src="{author}" alt="author" />
+    <img src="https://via.placeholder.com/200x450?text={author}" alt="author" />
+    <Button text="Modifier" on:click={_=>goto(`/news/${id}/edit`)}/>
   </div>
   <div class="content">
     <div class="title">
       <h2>{title}</h2>
-      <div class="date">{date}</div>
+      <div class="date">{formatDistance(new Date(date), new Date())}</div>
     </div>
     <p class="text">
       {@html content}

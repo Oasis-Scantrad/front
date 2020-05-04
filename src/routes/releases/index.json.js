@@ -1,9 +1,15 @@
 import { db } from "../../services/db";
 
-export async function get(req, res) {
+export function get(req, res) {
   res.writeHead(200, {
     "Content-Type": "application/json",
   });
 
   res.end(JSON.stringify(db.get("releases").values()));
+}
+
+
+export function post(req, res) {
+  req.needAuth();
+  res.dbCreate('releases', req.body);
 }

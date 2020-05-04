@@ -13,11 +13,12 @@
   import Button from "../../components/Button.svelte";
   import Paginate from "../../components/Paginate.svelte";
   import query from "query-store";
+  import { stores, goto } from "@sapper/app";
+  const { session } = stores();
 
   export let releases = [];
   let filteredReleases = [];
   let perPage = 5;
-
 
   $: filteredReleases = releases
     .filter(r => r.tags.some(t => $query.tag === undefined || $query.tag === t))
@@ -31,10 +32,9 @@
         r.tags.some(t => rx.test(t))
       );
     });
-    
-    let currentPage;
-    $: $query.page = currentPage
 
+  let currentPage;
+  $: $query.page = currentPage;
 </script>
 
 <style>
@@ -82,7 +82,7 @@
     {/if}
   </div>
 </div>
-{#if filteredReleases.length !== 0}
+{#if filteredReleases.length > 0}
   <div class="releases-list">
     {#each filteredReleases.slice(($query.page - 1) * perPage, ($query.page - 1) * perPage + perPage) as release}
       <div class="release">
@@ -103,7 +103,16 @@
       </div>
     {/each}
   </div>
-  <Paginate bind:currentPage={currentPage} list={filteredReleases} {perPage} />
+  <Paginate bind:currentPage list={filteredReleases} {perPage} />
 {:else}
   <h3>Aucun bouquins</h3>
+{/if}
+{#if $session.auth.logged}
+  <div style="text-align:right">
+    <Button
+      text="ajouter"
+      on:click={() => {
+        goto(location.origin + location.pathname + '/add');
+      }} />
+  </div>
 {/if}

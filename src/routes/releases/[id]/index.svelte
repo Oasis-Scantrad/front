@@ -26,7 +26,6 @@
   $: workers = release.chapters
     .flatMap(c => c.editors)
     .filter((value, index, self) => self.indexOf(value) === index);
-
 </script>
 
 <style>
@@ -37,6 +36,7 @@
 
   .col-2 {
     padding-left: var(--sm-px);
+    flex: auto;
   }
 
   .tags {
@@ -56,6 +56,10 @@
   }
   th {
     text-align: left;
+  }
+  .release-img > img {
+    max-width: 150px;
+    max-height: 250px;
   }
 </style>
 
@@ -120,6 +124,10 @@
 </div>
 {#if $session.auth.logged}
   <div style="text-align:right">
-    <Button text="modifier" on:click={()=>{goto(location.href+'/edit')}} />
+    <Button
+      text="modifier"
+      on:click={() => {
+        goto(location.origin + location.pathname + '/edit');
+      }} />
   </div>
 {/if}

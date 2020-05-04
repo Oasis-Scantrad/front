@@ -633,4 +633,40 @@ export function fill(db) {
       ],
     })
     .write();
+
+  const news = db.get("news");
+  const word = () =>
+    Array(Math.floor(Math.random() * 12 + 2))
+      .fill()
+      .map((_) => String.fromCharCode(Math.floor(Math.random() * 26 + 97)))
+      .join("");
+  const sentence = () => {
+    let s =
+      Array(Math.floor(Math.random() * 16 + 4))
+        .fill()
+        .map((_) => word())
+        .join(" ") + ".";
+    return String.fromCharCode(s.charCodeAt(0) - 32) + s.slice(1);
+  };
+  const paragraph = (d=16,min=4) =>
+    Array(Math.floor(Math.random() * d + min))
+      .fill()
+      .map((_) => sentence())
+      .join(Math.random() > 0.3 ? " " : "<br/>");
+  const anew = (id = shortid.generate()) => ({
+    title: `A very good new ${id}`,
+    id,
+    author: "Garry",
+    content: `<img style="float:left;margin: 0 10px;" src="https://via.placeholder.com/${Math.floor(
+      Math.random() * 100 + 100
+    )}x${Math.floor(Math.random() * 100 + 100)}" alt="image">${paragraph()}`,
+    date: Date.now(),
+  });
+  news
+    .push(
+      ...Array(50)
+        .fill()
+        .map(() => anew())
+    )
+    .write();
 }

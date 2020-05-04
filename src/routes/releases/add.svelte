@@ -1,14 +1,13 @@
 <script>
-import ReleaseEdit from './[id]/edit.svelte'
+  import ReleaseEdit from "./[id]/edit.svelte";
 
-let release = {
-    title: '',
+  let release = {
+    title: "",
     chapters: [],
-    img: '',
-    author: '',
+    img: "",
+    author: "",
     tags: []
-}
-
+  };
 </script>
 
-<ReleaseEdit {release} editText="ajout" saveText="creer" />
+<ReleaseEdit {release} editText="ajout" saveText="creer" postUrl="/releases.json" />
