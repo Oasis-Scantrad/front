@@ -51,9 +51,10 @@
     align-items: center;
   }
 
-  input {
+  .login-form input {
     margin-bottom: var(--small);
     text-align: center;
+    width: 18em;
   }
 
   .login-error{

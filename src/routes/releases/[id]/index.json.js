@@ -8,5 +8,5 @@ export function get(req, res, next) {
 export function post(req, res) {
   req.needAuth();
   // TODO: check that
-  res.dbPut(req.body);
+  res.dbUpdate('releases', req.body);
 }

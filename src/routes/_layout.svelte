@@ -1,5 +1,6 @@
 <script>
   import Nav from "../components/Nav.svelte";
+  import Button from "../components/Button.svelte";
   import Footer from "../components/Footer.svelte";
 
   export let segment;
@@ -12,9 +13,7 @@
     globalThis.localStorage.setItem("theme", dark ? "light" : "dark");
     dark = !dark;
   }
-
-  const darktheme = `
-  <style ✂prettier:content✂="CiAgICA6cm9vdCB7CiAgICAgIC0tcHJpbWFyeTogIzIyMjsKICAgICAgLS1zZWNvbmRhcnk6ICNlZWU7CiAgICB9CiAg" ✂prettier:content✂=""></style>`;
+  const darktheme = "<style>:root{--primary:#222;--secondary:#eee;}</style>";
 </script>
 
 <style>
@@ -32,6 +31,7 @@
   }
 
   :global(input[type="text"]),
+  :global(input[type="password"]),
   :global(input[type="number"]),
   :global(select),
   :global(textarea) {
@@ -46,6 +46,7 @@
   }
 
   :global(input[type="text"]:focus),
+  :global(input[type="password"]:focus),
   :global(input[type="number"]:focus),
   :global(select:focus),
   :global(textarea:focus) {
@@ -86,4 +87,6 @@
   {@html dark ? darktheme : ''}
 </div>
 
-<button on:click={toggleTheme}>toggle theme</button>
+<Button
+  text="Change theme to {dark ? 'light' : 'dark'}"
+  on:click={toggleTheme} />

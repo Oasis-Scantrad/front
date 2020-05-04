@@ -62,11 +62,6 @@
 <svelte:head>
   <title>{release.title}</title>
 </svelte:head>
-{#if $session.auth.logged}
-  <div style="text-align:right">
-    <Button text="modifier" on:click={()=>{goto(location.href+'/edit')}} />
-  </div>
-{/if}
 <div class="placer">
   <div class="col-1">
     <div class="release-img">
@@ -123,3 +118,8 @@
     </div>
   </div>
 </div>
+{#if $session.auth.logged}
+  <div style="text-align:right">
+    <Button text="modifier" on:click={()=>{goto(location.href+'/edit')}} />
+  </div>
+{/if}

@@ -17,6 +17,8 @@
   import Button from "../../../components/Button.svelte";
   import { stores, goto } from "@sapper/app";
   export let release;
+  export let saveText = "Enregistrer";
+  export let editText = "edition";
 
   const { session } = stores();
   if (!$session.auth.logged) goto("/auth/login");
@@ -28,6 +30,34 @@
     todo: "A faire",
     "in-progress": "En cours"
   };
+
+  async function save() {
+    release.tags = tags.split(",").map(t => t.trim().toLowerCase());
+    const res = await fetch(`/releases/${release.id}.json`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify(release)
+    });
+    console.log(await res.json());
+    goto(location.href + "/..");
+  }
+
+  function addChapter() {
+    const last = release.chapters[release.chapters.length - 1] || {number:0}
+    release.chapters = [
+      ...release.chapters,
+      {
+        number: +last.number + 1,
+        title: "",
+        state: "todo",
+        date: "",
+        editors: []
+      }
+    ];
+  }
 
   $: workers = release.chapters
     .flatMap(c => c.editors)
@@ -42,6 +72,7 @@
 
   .col-2 {
     padding-left: var(--sm-px);
+    flex: auto;
   }
 
   .tags {
@@ -98,7 +129,7 @@
 <div class="placer">
   <div class="col-1">
     <div class="release-img">
-      <img src={release.img} alt="release image" />
+      <img src={release.img || 'https://via.placeholder.com/150x200'} alt="release image" />
       <span>
         <br />
         URL:
@@ -109,7 +140,7 @@
     </div>
     <h3>Tags</h3>
     <div class="tags">
-      <input type="text" bind:value={tags} id="" />
+      <input type="text" bind:value={tags} />
     </div>
     <div class="author">
       <h3>Auteur</h3>
@@ -127,7 +158,7 @@
   <div class="col-2">
     <div class="desc">
       <h1>
-        Mode edition:
+        Mode {editText}:
         <br />
         <input type="text" bind:value={release.title} />
       </h1>
@@ -184,9 +215,7 @@
           {/each}
           <tr>
             <td colspan="4">
-              <Button
-                text="Ajouter"
-                on:click={() => (release.chapters = [...release.chapters, { number: release.chapters[release.chapters.length - 1].number + 1, title: '', state: 'todo', date: '', editors: [] }])} />
+              <Button text="Ajouter" on:click={addChapter} />
             </td>
           </tr>
         </tbody>
@@ -196,5 +225,5 @@
 </div>
 <div class="actions">
   <Button text="Annuler" />
-  <Button text="Enregistrer" />
+  <Button text="{saveText}" on:click={save} />
 </div>
