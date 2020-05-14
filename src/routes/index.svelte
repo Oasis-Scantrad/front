@@ -25,6 +25,7 @@
     background-attachment: scroll;
     background-repeat: no-repeat;
     background-size: cover;
+    background-position: center;
     justify-content: center;
     align-items: center;
     color: var(--primary);
@@ -36,8 +37,10 @@
 
   .banner-height {
     height: 15em;
+    margin:auto;
     margin-top: -3em;
     margin-bottom: var(--small);
+    max-width: 893px;
   }
 
   .release-roll {
