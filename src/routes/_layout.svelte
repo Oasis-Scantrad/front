@@ -36,6 +36,7 @@
   :global(select),
   :global(textarea) {
     width: 100%;
+    box-sizing: border-box;
     font-size: var(--small);
     border: 0px;
     padding: var(--xs-px);

@@ -1,7 +1,7 @@
 <script context="module">
   export async function preload({ params }) {
     const res = await this.fetch(`releases/${params.id}.json`, {
-      credentials: "include"
+      credentials: "include",
     });
     const data = await res.json();
     if (res.status === 200) {
@@ -16,6 +16,7 @@
   import Tag from "../../../components/Tag.svelte";
   import Button from "../../../components/Button.svelte";
   import { stores, goto } from "@sapper/app";
+  import ChapterLine from "./_chapter-line.svelte";
   export let release;
   export let saveText = "Enregistrer";
   export let editText = "edition";
@@ -26,24 +27,18 @@
 
   let tags = release.tags.join(", ");
 
-  const trad = {
-    done: "Termine",
-    todo: "A faire",
-    "in-progress": "En cours"
-  };
-
   async function save() {
-    release.tags = tags.split(",").map(t => t.trim().toLowerCase());
+    release.tags = tags.split(",").map((t) => t.trim().toLowerCase());
     const res = await fetch(postUrl, {
       method: "POST",
       credentials: "include",
       headers: {
-        "Content-type": "application/json"
+        "Content-type": "application/json",
       },
-      body: JSON.stringify(release)
+      body: JSON.stringify(release),
     });
     console.log(await res.json());
-    goto(location.origin+location.pathname + "/..");
+    goto(location.origin + location.pathname + "/../../" + release.id );
   }
 
   function addChapter() {
@@ -54,14 +49,14 @@
         number: +last.number + 1,
         title: "",
         state: "todo",
-        date: "",
-        editors: []
-      }
+        date: Date.now(),
+        editors: [],
+      },
     ];
   }
 
   $: workers = release.chapters
-    .flatMap(c => c.editors)
+    .flatMap((c) => c.editors)
     .filter((value, index, self) => self.indexOf(value) === index);
 </script>
 
@@ -110,11 +105,6 @@
     padding-top: 6px;
     padding-bottom: 6px;
   }
-
-  .input-holder.number > input {
-    width: 55px;
-  }
-
   textarea {
     min-height: 200px;
   }
@@ -132,7 +122,7 @@
     <div class="release-img">
       <img
         src={release.img || 'https://via.placeholder.com/150x200'}
-        alt="release image" />
+        alt="release pic" />
       <span>
         <br />
         URL:
@@ -177,48 +167,17 @@
             <th>Numero</th>
             <th>Etat</th>
             <th>Date</th>
+            <th>Editeurs</th>
             <th>Lien</th>
           </tr>
         </thead>
         <tbody>
           {#each release.chapters.sort((a, b) => a.number - b.number) as chapter, index}
-            <tr>
-              <td>
-                <div class="input-holder number">
-                  <input type="text" bind:value={chapter.number} />
-                </div>
-              </td>
-              <td>
-                <div class="input-holder">
-                  <select bind:value={chapter.state}>
-                    {#each Object.entries(trad) as [key, value]}
-                      <option value={key}>{value}</option>
-                    {/each}
-                  </select>
-                </div>
-              </td>
-              <td>
-                <div class="input-holder">
-                  <input type="text" bind:value={chapter.date} />
-                </div>
-              </td>
-              <td>
-                <div class="input-holder">
-                  <input type="text" bind:value={chapter.link} />
-                </div>
-              </td>
-              <td>
-                <div class="input-holder">
-                  <Button
-                    text="-"
-                    on:click={() => (release.chapters = release.chapters.filter((c, i) => i !== index))} />
-                </div>
-              </td>
-            </tr>
+            <ChapterLine {chapter} bind:release {index} />
           {/each}
           <tr>
             <td colspan="4">
-              <Button text="Ajouter" on:click={addChapter} />
+              <Button text="+ Ajouter" on:click={addChapter} />
             </td>
           </tr>
         </tbody>
@@ -227,6 +186,6 @@
   </div>
 </div>
 <div class="actions">
-  <Button text="Annuler" />
+  <Button text="Annuler" on:click={() =>window.history.back()} />
   <Button text={saveText} on:click={save} />
 </div>

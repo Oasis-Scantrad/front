@@ -13,11 +13,16 @@
 <script>
   import Tag from "../../../components/Tag.svelte";
   import Button from "../../../components/Button.svelte";
+  import { sanitize } from "../../../services/sanitizer";
+  import Datepicker from '../../../vendor/svelte-calendar/src/Components/Datepicker.svelte';
   import { stores, goto } from "@sapper/app";
   export let anew;
   export let saveText = "Enregistrer";
   export let editText = "edition";
   export let postUrl = `/news/${anew.id}.json`;
+
+  let formattedSelected;
+  let selectedDate = new Date(+anew.date);
 
   const { session } = stores();
   if (!$session.auth.logged) goto("/auth/login");
@@ -27,9 +32,9 @@
       method: "POST",
       credentials: "include",
       headers: {
-        "Content-type": "application/json"
+        "Content-type": "application/json",
       },
-      body: JSON.stringify({...anew,date: +anew.date})
+      body: JSON.stringify({ ...anew, date: +anew.date }),
     });
     console.log(await res.json());
     goto("/news");
@@ -69,6 +74,9 @@
 
   textarea {
     min-height: 200px;
+    font-family: "Courier New", Courier, monospace;
+    text-align: left;
+    line-height: 1.5em;
   }
   .actions {
     text-align: right;
@@ -84,7 +92,7 @@
     <div class="release-img">
       <img
         src={'https://via.placeholder.com/150x200?text=' + anew.author}
-        alt="release image" />
+        alt="release pic" />
     </div>
     <div class="author">
       <h3>Auteur</h3>
@@ -93,7 +101,13 @@
       </div>
       <h3>Date</h3>
       <div class="input-holder">
-        <input type="text" bind:value={anew.date} />
+        <Datepicker
+          min={new Date(0)}
+          format={'#{d}/#{m}/#{Y}'}
+          bind:formattedSelected
+          bind:selected={selectedDate}>
+          <input type="text" disabled value={formattedSelected} />
+        </Datepicker>
       </div>
     </div>
   </div>
@@ -108,9 +122,13 @@
         <textarea bind:value={anew.content} />
       </p>
     </div>
+    <h2>Apercu</h2>
+    <div>
+      {@html sanitize(anew.content)}
+    </div>
   </div>
 </div>
 <div class="actions">
-  <Button text="Annuler" />
+  <Button text="Annuler" on:click={() =>window.history.back()} />
   <Button text={saveText} on:click={save} />
 </div>

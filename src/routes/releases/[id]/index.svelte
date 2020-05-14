@@ -14,6 +14,7 @@
   import Tag from "../../../components/Tag.svelte";
   import Button from "../../../components/Button.svelte";
   import { stores, goto } from "@sapper/app";
+  import { format } from "date-fns";
   const { session } = stores();
   export let release;
 
@@ -69,7 +70,7 @@
 <div class="placer">
   <div class="col-1">
     <div class="release-img">
-      <img src={release.img} alt="release image" />
+      <img src={release.img} alt="release pic" />
     </div>
     <h3>Tags</h3>
     <div class="tags">
@@ -101,6 +102,7 @@
             <th>Numero</th>
             <th>Etat</th>
             <th>Date</th>
+            <th>Editeurs</th>
             <th>Lien</th>
           </tr>
         </thead>
@@ -109,7 +111,8 @@
             <tr>
               <td>{chapter.number}</td>
               <td>{trad[chapter.state]}</td>
-              <td>{chapter.date || '-'}</td>
+              <td>{chapter.date ? format(new Date(chapter.date), 'dd/MM/yyyy') : '-'}</td>
+              <td>{chapter.editors.join(', ')}</td>
               <td>
                 {#if chapter.link !== undefined}
                   <a class="download" href={chapter.link}>Telecharger</a>
