@@ -38,7 +38,7 @@
       body: JSON.stringify(release),
     });
     console.log(await res.json());
-    goto(location.origin + location.pathname + "/../../" + release.id );
+    window.history.back();
   }
 
   function addChapter() {

@@ -13,13 +13,20 @@
 <script>
   import Tag from "../../../components/Tag.svelte";
   import Button from "../../../components/Button.svelte";
-  import { sanitize } from "../../../services/sanitizer";
-  import Datepicker from '../../../vendor/svelte-calendar/src/Components/Datepicker.svelte';
+  import { sanitize, unecodeHtml } from "../../../services/sanitizer";
+  import Datepicker from "../../../vendor/svelte-calendar/src/Components/Datepicker.svelte";
   import { stores, goto } from "@sapper/app";
+  import {onMount} from 'svelte';
   export let anew;
   export let saveText = "Enregistrer";
   export let editText = "edition";
   export let postUrl = `/news/${anew.id}.json`;
+
+  onMount(()=>{
+    console.log(anew.content);
+    anew.content = unecodeHtml(anew.content);
+    console.log(anew.content);
+  })
 
   let formattedSelected;
   let selectedDate = new Date(+anew.date);
@@ -129,6 +136,6 @@
   </div>
 </div>
 <div class="actions">
-  <Button text="Annuler" on:click={() =>window.history.back()} />
+  <Button text="Annuler" on:click={() => window.history.back()} />
   <Button text={saveText} on:click={save} />
 </div>

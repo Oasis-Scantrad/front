@@ -1,5 +1,6 @@
 <script>
   import { format } from "date-fns";
+  import { sanitize } from "../services/sanitizer";
   import Button from "./Button.svelte";
   import { stores, goto } from "@sapper/app";
   const { session } = stores();
@@ -51,7 +52,7 @@
       </div>
     </div>
     <p class="text">
-      {@html content}
+      {@html sanitize(content)}
     </p>
   </div>
 </div>
