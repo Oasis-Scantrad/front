@@ -1,5 +1,8 @@
 <script>
+  import { stores } from "@sapper/app";
+  const { session } = stores();
   export let segment;
+  let sub = false;
 </script>
 
 <style>
@@ -23,7 +26,7 @@
     padding: var(--sm-px) 0px;
   }
 
-  a.link {
+  .link {
     display: block;
     background-color: transparent;
     padding: 5px 15px;
@@ -33,9 +36,10 @@
     font-weight: bold;
     color: var(--secondary);
     transition-duration: 0.2s;
+    cursor: pointer;
   }
-  a.link:hover,
-  a.link.active {
+  .link:hover,
+  .link.active {
     background-color: var(--secondary);
     color: var(--primary);
   }
@@ -59,6 +63,26 @@
 
   .placeholder {
     height: 70px;
+  }
+  .sub {
+    height: 0px;
+    position: absolute;
+    overflow: hidden;
+    transition-duration: 0.5s;
+    border-radius: 1px;
+    transition-duration: 0.5s;
+    background-color: var(--primary);
+    padding: 0px;
+  }
+  .hidden {
+    height: 0px;
+    box-shadow: 0;
+  }
+  .show {
+    width: 200px;
+    height: 200px;
+    padding: 10px;
+    box-shadow: 0px 0px 1px var(--secondary);
   }
 </style>
 
@@ -85,9 +109,21 @@
       </a>
     </div>
     <div class="placer">
-      <a href="auth/login" class="link">
+      <div class:active={sub} on:click={() => (sub = !sub)} class="link">
         <div class="text">Plus</div>
-      </a>
+      </div>
+      <div class:hidden={!sub} class:show={sub} class="sub">
+        <div>
+          {#if !$session.auth.logged}
+            <a class="link" href="auth/login">Connexion</a>
+          {:else}
+            <a class="link" href="auth/login">logout</a>
+          {/if}
+        </div>
+        <div>
+          <a href="/" class="link">home</a>
+        </div>
+      </div>
     </div>
   </div>
 </nav>
