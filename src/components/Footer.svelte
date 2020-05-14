@@ -67,6 +67,3 @@
   </div>
 </footer>
 
-<pre>
-Session:
-{JSON.stringify($session, null, 2)}</pre>

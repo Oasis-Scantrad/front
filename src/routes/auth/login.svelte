@@ -89,6 +89,7 @@
     <Button text="se connecter" on:click={login} />
   </div>
 {:else}
-  <h3>You are already connected</h3>
-  <Button text='logout' on:click={logout}/>
+  <div style="text-align:right;">
+    <Button text='logout' on:click={logout}/>
+  </div>
 {/if}

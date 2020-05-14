@@ -81,7 +81,7 @@
   }
   .show {
     width: 200px;
-    height: 200px;
+    height: 138px;
     padding: 10px;
     box-shadow: 0px 0px 1px var(--secondary);
   }
@@ -114,15 +114,23 @@
         <div class="text">Plus</div>
       </div>
       <div class:hidden={!sub} class:show={sub} class="sub">
-        <div>
           {#if !$session.auth.logged}
+        <div>
             <a class="link" href="auth/login" on:click="{toggle}">Connexion</a>
+        </div>
           {:else}
-            <a class="link" href="auth/login" on:click="{toggle}">logout</a>
-          {/if}
+        <div>
+            <a class="link" href="auth/login" on:click="{toggle}">Mon espace</a>
         </div>
         <div>
-          <a href="/" class="link" on:click="{toggle}">home</a>
+            <a class="link" href="auth/login" on:click="{toggle}">logout</a>
+        </div>
+          {/if}
+        <div>
+          <a href="/" class="link" on:click="{toggle}">L'equipe</a>
+        </div>
+        <div>
+          <a href="/" class="link" on:click="{toggle}">Infos</a>
         </div>
       </div>
     </div>

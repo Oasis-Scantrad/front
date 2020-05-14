@@ -13,7 +13,7 @@
     globalThis.localStorage.setItem("theme", dark ? "light" : "dark");
     dark = !dark;
   }
-  const darktheme = "<style>:root{--primary:#222;--secondary:#eee;--filter-invert:brightness(0.3) grayscale(.5) invert();}</style>";
+  const darktheme = "<style>:root{--primary:#222;--secondary:#eee;--filter-invert:brightness(0.3) grayscale(.5) invert();--invert:invert();}</style>";
 </script>
 
 <style>
@@ -73,12 +73,32 @@
     --sm-px: 10px;
     --xs-px: 5px;
     --filter-invert: brightness(0.3) grayscale(.5);
+    --invert: none;
   }
 
   :global(body) {
     background-color: var(--primary);
     color: var(--secondary);
     transition-duration: 0.3s;
+  }
+  .bottom-image {
+    z-index: -1;
+    max-height: 500px;
+  }
+  .bottom-image > div > img {
+    width: 60%;
+    min-width: 650px;
+    opacity: .3;
+    z-index: -1;
+    filter: var(--invert);
+  }
+  .bottom-image > div {
+    top:200px;
+    text-align : center;
+    position: absolute;
+    z-index: -1;
+    left:0;
+    right:0;
   }
 </style>
 
@@ -97,3 +117,9 @@
 <Button
   text="Change theme to {dark ? 'light' : 'dark'}"
   on:click={toggleTheme} />
+
+<div class="bottom-image">
+  <div>
+    <img src="/bg.png" alt="bg"/>
+  </div>
+</div>
