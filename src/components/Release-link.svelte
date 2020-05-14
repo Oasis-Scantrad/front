@@ -21,7 +21,7 @@
   .release-item:hover > div.img > img {
     width: 100%;
     height: auto;
-    filter: brightness(0.3) grayscale(.5);
+    filter: var(--filter-invert);
   }
   .release-item > div.img {
     position: absolute;

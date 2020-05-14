@@ -1,8 +1,8 @@
 <script context="module">
   export function preload({ params, query }) {
     return this.fetch(`releases.json`)
-      .then(r => r.json())
-      .then(releases => {
+      .then((r) => r.json())
+      .then((releases) => {
         return { releases };
       });
   }
@@ -21,20 +21,26 @@
   let perPage = 5;
 
   $: filteredReleases = releases
-    .filter(r => r.tags.some(t => $query.tag === undefined || $query.tag === t))
-    .filter(r => {
+    .filter((r) =>
+      r.tags.some((t) => $query.tag === undefined || $query.tag === t)
+    )
+    .filter((r) => {
       const rx = new RegExp($query.search);
       return (
         $query.search === "" ||
         rx.test(r.title) ||
         rx.test(r.description) ||
         rx.test(r.author) ||
-        r.tags.some(t => rx.test(t))
+        r.tags.some((t) => rx.test(t))
       );
     });
 
   let currentPage;
   $: $query.page = currentPage;
+  $: displayList = filteredReleases.slice(
+    ($query.page - 1) * perPage,
+    ($query.page - 1) * perPage + perPage
+  );
 </script>
 
 <style>
@@ -82,7 +88,7 @@
 </div>
 {#if filteredReleases.length > 0}
   <div class="releases-list">
-    {#each filteredReleases.slice(($query.page - 1) * perPage, ($query.page - 1) * perPage + perPage) as release}
+    {#each displayList as release, index}
       <div class="release">
         <div class="img">
           <img src={release.img} alt="release" />
@@ -99,6 +105,9 @@
           <p class="description">{release.description}</p>
         </div>
       </div>
+      {#if index + 1 !== displayList.length}
+        <hr class="hr" />
+      {/if}
     {/each}
   </div>
   <Paginate bind:currentPage list={filteredReleases} {perPage} />

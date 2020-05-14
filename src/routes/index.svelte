@@ -74,8 +74,11 @@
 
 <h3 class="part">Dernieres news</h3>
 <div class="last-news">
-  {#each news.slice(0, 2) as anew}
+  {#each news.slice(0, 2) as anew, index}
     <New {...anew} />
+    {#if index+1 !== 2}
+      <hr class="hr">
+    {/if}
   {/each}
 </div>
 <div style="text-align:center">

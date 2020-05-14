@@ -13,7 +13,7 @@
     globalThis.localStorage.setItem("theme", dark ? "light" : "dark");
     dark = !dark;
   }
-  const darktheme = "<style>:root{--primary:#222;--secondary:#eee;}</style>";
+  const darktheme = "<style>:root{--primary:#222;--secondary:#eee;--filter-invert:brightness(0.3) grayscale(.5) invert();}</style>";
 </script>
 
 <style>
@@ -72,6 +72,7 @@
     --xsmall: 0.5em;
     --sm-px: 10px;
     --xs-px: 5px;
+    --filter-invert: brightness(0.3) grayscale(.5);
   }
 
   :global(body) {
