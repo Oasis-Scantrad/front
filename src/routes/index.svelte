@@ -63,7 +63,7 @@
 
 <h3 class="part">Dernieres sorties</h3>
 <div class="release-roll">
-  {#each releases.slice(0, 3) as release}
+  {#each releases.slice(0, 5) as release}
     <ReleaseLink
       name={release.title}
       id={release.id}
