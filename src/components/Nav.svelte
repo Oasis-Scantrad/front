@@ -3,6 +3,7 @@
   const { session } = stores();
   export let segment;
   let sub = false;
+  const toggle = () => (sub = !sub)
 </script>
 
 <style>
@@ -62,7 +63,7 @@
   }
 
   .placeholder {
-    height: 70px;
+    height: 50px;
   }
   .sub {
     height: 0px;
@@ -109,19 +110,19 @@
       </a>
     </div>
     <div class="placer">
-      <div class:active={sub} on:click={() => (sub = !sub)} class="link">
+      <div class:active={sub} on:click={toggle} class="link">
         <div class="text">Plus</div>
       </div>
       <div class:hidden={!sub} class:show={sub} class="sub">
         <div>
           {#if !$session.auth.logged}
-            <a class="link" href="auth/login">Connexion</a>
+            <a class="link" href="auth/login" on:click="{toggle}">Connexion</a>
           {:else}
-            <a class="link" href="auth/login">logout</a>
+            <a class="link" href="auth/login" on:click="{toggle}">logout</a>
           {/if}
         </div>
         <div>
-          <a href="/" class="link">home</a>
+          <a href="/" class="link" on:click="{toggle}">home</a>
         </div>
       </div>
     </div>

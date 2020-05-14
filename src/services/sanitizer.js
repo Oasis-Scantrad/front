@@ -10,9 +10,10 @@ export function sanitize(str) {
       u: [],
       i: [],
       em: [],
+      br:[]
     },
     css: false,
-  });
+  }).replace(/\n/g,'<br/>');
 }
 
 export function sanitizeObject(data, schema) {
@@ -33,5 +34,5 @@ export function sanitizeObject(data, schema) {
 }
 
 export function unecodeHtml(str) {
-  return he.decode(str);
+  return he.decode(str).replace(/<br\/?>/g, '\n');
 }

@@ -5,7 +5,7 @@ export async function get(req, res) {
     "Content-Type": "application/json",
   });
 
-  res.end(JSON.stringify(db.get("news").values()));
+  res.end(JSON.stringify(db.get("news").values().reverse()));
 }
 
 

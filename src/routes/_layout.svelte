@@ -23,6 +23,7 @@
     margin: 0 auto;
     box-sizing: border-box;
     text-align: justify;
+    border: 1px solid var(--secondary);
   }
 
   :global(textarea) {
@@ -53,6 +54,10 @@
   :global(textarea:focus) {
     outline: 0;
     border-bottom-width: 2px;
+  }
+
+  :global(hr.hr){
+    margin-bottom:2em;
   }
 
   :global(:root) {

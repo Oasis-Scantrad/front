@@ -5,7 +5,7 @@ export function get(req, res) {
     "Content-Type": "application/json",
   });
 
-  res.end(JSON.stringify(db.get("releases").values()));
+  res.end(JSON.stringify(db.get("releases").values()/*.reverse()*/));
 }
 
 

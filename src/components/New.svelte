@@ -29,8 +29,13 @@
     display: flex;
     justify-content: space-between;
   }
+  .author {
+    display: flex;
+    flex-direction: column;
+  }
   .author > img {
     width: 7em;
+    margin-bottom: 1em;
   }
   .date {
     margin-left: 10px;

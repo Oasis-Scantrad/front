@@ -30,6 +30,7 @@
         rx.test(n.author)
       );
     });
+  $: displayNews = filteredNews.slice((currentPage - 1) * perPage, (currentPage - 1) * perPage + perPage)
 </script>
 
 <style>
@@ -55,8 +56,11 @@
   </div>
 </div>
 {#if filteredNews.length > 0}
-  {#each filteredNews.slice((currentPage - 1) * perPage, (currentPage - 1) * perPage + perPage) as anew}
+  {#each displayNews as anew, index}
     <New {...anew} />
+    {#if index+1 !== displayNews.length}
+      <hr class="hr">
+    {/if}
   {/each}
   <Paginate bind:currentPage list={filteredNews} {perPage} />
 {:else}

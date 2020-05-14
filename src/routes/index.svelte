@@ -1,7 +1,7 @@
 <script context="module">
   export async function preload({ params }) {
-    const releases = await this.fetch(`releases.json`).then(r => r.json());
-    const news = await this.fetch(`news.json`).then(r => r.json());
+    const releases = await this.fetch(`releases.json`).then((r) => r.json());
+    const news = await this.fetch(`news.json`).then((r) => r.json());
     return { releases, news };
   }
 </script>
@@ -21,7 +21,7 @@
     left: 0;
     right: 0;
     display: flex;
-    background-image: url(https://via.placeholder.com/940x215);
+    background-image: url(http://oasis-scantrad.fr/V4/skin/Bon/header.jpg);
     background-attachment: scroll;
     background-repeat: no-repeat;
     background-size: cover;
@@ -30,9 +30,9 @@
     color: var(--primary);
   }
 
-  .banner > h1 {
+  /*.banner > h1 {
     margin: 0;
-  }
+  }*/
 
   .banner-height {
     height: 15em;
@@ -57,7 +57,7 @@
 </svelte:head>
 
 <div class="banner banner-height">
-  <h1>BANNER</h1>
+  <!--<h1></h1>-->
 </div>
 <div class="banner-height placeholder" />
 
@@ -79,5 +79,5 @@
   {/each}
 </div>
 <div style="text-align:center">
-  <Button text="Plus" on:click={_ => goto('/news')} />
+  <Button text="Plus" on:click={(_) => goto('/news')} />
 </div>
