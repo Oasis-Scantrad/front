@@ -88,7 +88,7 @@
     <h3>Equipe</h3>
     <div class="workers">
       {#each workers as worker}
-        <a href=".">{worker}</a>
+        <a href="/users/{worker}">{worker}</a>
       {/each}
     </div>
   </div>
