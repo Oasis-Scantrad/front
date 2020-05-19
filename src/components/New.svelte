@@ -40,6 +40,9 @@
   .date {
     margin-left: 10px;
   }
+  :global(p.text img) {
+    max-width:100%;
+  }
 </style>
 
 <div class="new">

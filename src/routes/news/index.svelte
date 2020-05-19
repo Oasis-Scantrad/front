@@ -69,7 +69,7 @@
 {#if $session.auth.logged}
   <div style="text-align:right">
     <Button
-      text="ajouter"
+      text="+ Ajouter"
       on:click={() => {
         goto(location.origin + location.pathname + '/add');
       }} />

@@ -63,11 +63,17 @@
   }
   .release > .content {
     padding-left: var(--sm-px);
+    white-space: pre-line;
   }
   .tags {
     display: flex;
   }
 </style>
+
+
+<svelte:head>
+  <title>Bouquins</title>
+</svelte:head>
 
 <div class="releases-header">
   <h1>Bouquins</h1>
@@ -117,7 +123,7 @@
 {#if $session.auth.logged}
   <div style="text-align:right">
     <Button
-      text="ajouter"
+      text="+ Ajouter"
       on:click={() => {
         goto(location.origin + location.pathname + '/add');
       }} />

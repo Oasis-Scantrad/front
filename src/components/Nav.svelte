@@ -105,7 +105,7 @@
       </a>
     </div>
     <div class="placer">
-      <a href="about" class="link {segment === 'about' ? 'active' : ''}">
+      <a href="advancement" class="link {segment === 'about' ? 'active' : ''}">
         <div class="text">Avancement</div>
       </a>
     </div>

@@ -62,6 +62,9 @@
     max-width: 150px;
     max-height: 250px;
   }
+  .content {
+    white-space: pre-line;
+  }
 </style>
 
 <svelte:head>
