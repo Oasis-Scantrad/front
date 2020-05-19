@@ -3,7 +3,16 @@
   const { session } = stores();
   export let segment;
   let sub = false;
-  const toggle = () => (sub = !sub)
+  const toggle = () => (sub = !sub);
+
+  function logout() {
+    fetch("auth/logout", { credentials: "include" })
+      .then((r) => r.json())
+      .then((r) => {
+        session.update((s) => ({ ...s, auth: { logged: false } }));
+        goto("/");
+      });
+  }
 </script>
 
 <style>
@@ -114,23 +123,33 @@
         <div class="text">Plus</div>
       </div>
       <div class:hidden={!sub} class:show={sub} class="sub">
-          {#if !$session.auth.logged}
+        {#if !$session.auth.logged}
+          <div>
+            <a class="link" href="auth/login" on:click={toggle}>Connexion</a>
+          </div>
+        {:else}
+          <div>
+            <a
+              class="link"
+              href="/users/{$session.auth.session.username}"
+              on:click={toggle}>
+              Mon espace
+            </a>
+          </div>
+          <div>
+            <a
+              class="link"
+              href="auth/login"
+              on:click={() => (toggle(), logout())}>
+              logout
+            </a>
+          </div>
+        {/if}
         <div>
-            <a class="link" href="auth/login" on:click="{toggle}">Connexion</a>
+          <a href="/users" class="link" on:click={toggle}>L'equipe</a>
         </div>
-          {:else}
         <div>
-            <a class="link" href="auth/login" on:click="{toggle}">Mon espace</a>
-        </div>
-        <div>
-            <a class="link" href="auth/login" on:click="{toggle}">logout</a>
-        </div>
-          {/if}
-        <div>
-          <a href="/" class="link" on:click="{toggle}">L'equipe</a>
-        </div>
-        <div>
-          <a href="/" class="link" on:click="{toggle}">Infos</a>
+          <a href="/" class="link" on:click={toggle}>Infos</a>
         </div>
       </div>
     </div>

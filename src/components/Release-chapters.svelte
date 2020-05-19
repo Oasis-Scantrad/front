@@ -91,8 +91,8 @@
                 {chapter.date ? format(new Date(chapter.date), 'dd/MM/yyyy') : '-'}
               </td>
               <td>
-                {#each chapter.editors as editor}
-                  <a href="/users/{editor}">{editor}</a>
+                {#each chapter.editors as editor, index}
+                  <a href="/users/{editor}">{editor}</a>{#if index+1 !== chapter.editors.length},&MediumSpace;{/if}
                 {/each}
               </td>
             </tr>

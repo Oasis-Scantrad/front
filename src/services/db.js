@@ -8,6 +8,7 @@ const dbLow = low(adapter);
 export const db = dbLow.defaults({ releases: [], users: [], news: [] });
 
 export const database = (req, res, next) => {
+  res.db = db;
   res.dbGet = (document, id) => {
     const elem = db.get(document).find({ id }).value();
     if (elem !== undefined) {

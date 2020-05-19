@@ -33,14 +33,7 @@
       });
   }
 
-  function logout() {
-    fetch("auth/logout", { credentials: "include" })
-      .then(r => r.json())
-      .then(r => {
-        session.update(s => ({ ...s, auth: { logged: false } }));
-        goto("/");
-      });
-  }
+
 </script>
 
 <style>
@@ -89,7 +82,7 @@
     <Button text="se connecter" on:click={login} />
   </div>
 {:else}
-  <div style="text-align:right;">
-    <Button text='logout' on:click={logout}/>
+  <div>
+    Vous etes deja connecte en tant que <strong><a href="/users/{$session.auth.session.username}">{$session.auth.session.username}</a></strong>    <pre>{JSON.stringify($session, null,2)}</pre>
   </div>
 {/if}
