@@ -123,10 +123,9 @@
       <img
         src={release.img || 'https://via.placeholder.com/150x200'}
         alt="release pic" />
-      <span>
-        <br />
-        URL:
-      </span>
+      <h3>
+        Image URL:
+      </h3>
       <div class="input-holder">
         <input type="text" bind:value={release.img} />
       </div>
