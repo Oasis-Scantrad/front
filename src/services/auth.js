@@ -37,11 +37,17 @@ export async function login(username, password) {
   return makeToken(user);
 }
 
-export async function signin(username, password) {
+export async function signin(username, password, description = "", roles = []) {
   if (db.get("users").find({ username: username }).value())
     throw new Error("User already exists");
   db.get("users")
-    .push({ username, id: generate(), passwordHash: hashPass(password) })
+    .push({
+      username,
+      id: generate(),
+      passwordHash: hashPass(password),
+      roles,
+      description,
+    })
     .write();
 }
 
@@ -81,6 +87,18 @@ export function auth(req, res, next) {
         message: `Unauthorized`,
       })
     );
+  };
+  req.needRole = (role) => {
+    if (!req.auth.logged || !req.auth.session.roles.includes(role)) {
+      res.writeHead(401, {
+        "Content-Type": "application/json",
+      });
+      res.end(
+        JSON.stringify({
+          message: `Unauthorized`,
+        })
+      );
+    }
   };
   res.logout = (data = { message: "Successfully logged out" }, code = 200) => {
     res.writeHead(code, {

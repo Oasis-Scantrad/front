@@ -63,6 +63,7 @@
   <div class="col-2">
     <div class="desc">
       <h1>{user.username}</h1>
+      <div> <b>Roles:</b> {user.roles.join(', ')}</div>
       <p class="content">{user.description || '-'}</p>
     </div>
 
