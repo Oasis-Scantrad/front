@@ -1,7 +1,7 @@
 <script context="module">
   export async function preload({ params }) {
-    const releases = await this.fetch(`releases.json`).then((r) => r.json());
-    const news = await this.fetch(`news.json`).then((r) => r.json());
+    const releases = [];//await this.fetch(`releases.json`).then((r) => r.json());
+    const news =[];// await this.fetch(`news.json`).then((r) => r.json());
     return { releases, news };
   }
 </script>
