@@ -1,0 +1,11 @@
+{
+  "hosting": {
+    "site": "oasis-dev",
+    "public": "functions/__sapper__/build",
+    "ignore": [
+      "firebase.json",
+      "**/.*",  
+      "**/node_modules/**"
+    ]
+  }
+}
